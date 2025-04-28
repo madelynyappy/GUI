@@ -1,0 +1,433 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Apr 20, 2025, 1:09:26 AM
+    Author     : Madelyn Yap
+*/
+
+        /* Color Theme */
+        :root {
+            --bdazzled-blue: #30588C;
+            --silver-lake-blue: #6093BF;
+            --japanese-indigo: #254559;
+            --warm-white: #F5F5F5;
+            --lavender-gray: #C4C4D0;
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--warm-white);
+            color: var(--japanese-indigo);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+
+        .header h1 {
+            color: var(--bdazzled-blue);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: var(--japanese-indigo);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Layout */
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .form-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .info-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card h2 {
+            color: var(--bdazzled-blue);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--japanese-indigo);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--lavender-gray);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--silver-lake-blue);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn {
+            background-color: var(--bdazzled-blue);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background-color: var(--japanese-indigo);
+        }
+
+        /* Contact Info Styles */
+        .contact-item {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .contact-icon {
+            margin-right: 15px;
+            min-width: 24px;
+            color: var(--silver-lake-blue);
+        }
+
+        .contact-details {
+            flex: 1;
+        }
+
+        .contact-details p {
+            margin-bottom: 5px;
+        }
+
+        .contact-label {
+            font-weight: 600;
+        }
+
+        .contact-text {
+            color: #666;
+        }
+
+        /* Business Hours */
+        .hours-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .hours-day {
+            color: #666;
+        }
+
+        /* Social Media */
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            border: 1px solid var(--lavender-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bdazzled-blue);
+            transition: all 0.3s;
+        }
+
+        .social-btn:hover {
+            background-color: var(--silver-lake-blue);
+            color: white;
+            border-color: var(--silver-lake-blue);
+        }
+
+        /* Map Section */
+        .map-container {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            border-radius: 4px;
+            border: 1px solid var(--lavender-gray);
+            background-color: var(--warm-white);
+            margin-bottom: 15px;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--lavender-gray);
+            opacity: 0.3;
+        }
+
+        .map-pin {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .map-pin-inner {
+            width: 16px;
+            height: 16px;
+            background-color: var(--bdazzled-blue);
+            border-radius: 50%;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .success-icon {
+            color: #4CAF50;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .success-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--bdazzled-blue);
+        }
+
+        .success-text {
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+        
+
+
+    /* Testimonials section: copied exactly as requested */
+    .testimonials {
+      padding: 4rem 0;
+      background-color: #fff;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: #e6f7f5;
+      color: #14b8a6;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.25rem 0.75rem;
+      border-radius: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .section-title {
+        font-size: 2.5rem;
+      }
+    }
+
+    .section-description {
+      max-width: 900px;
+      margin: 0 auto;
+      color: #666;
+      font-size: 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .section-description {
+        font-size: 1.125rem;
+      }
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      max-width: 1024px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @media (min-width: 1024px) {
+      .testimonial-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .testimonial-card {
+      background-color: #fff;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+      padding: 1.5rem;
+      border: 1px solid #e5e7eb;
+    }
+
+    .testimonial-content {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .avatar {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 9999px;
+      background-color: #e5e7eb;
+      flex-shrink: 0;
+    }
+
+    .testimonial-text {
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .testimonial-author {
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+
+    .testimonial-position {
+      font-size: 0.875rem;
+      color: #666;
+    }
+
+.location-section {
+    background-color: #254559; /* Japanese Indigo */
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.location-section .full-width-map {
+    width: 100%;
+    max-width: 1200px;
+    background-color: #ffffff; /* White card for contrast */
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.location-section .full-width-map h2 {
+    color: #254559; /* Match theme */
+    margin-bottom: 20px;
+}
+
+.location-section .full-width-map p {
+    color: #444;
+    font-size: 0.95rem;
+    margin-top: 20px;
+}
+
+.map-container {
+    width: 100%;
+    height: 300px;
+    background-color: #ccc; /* Placeholder background */
+    border-radius: 8px;
+    position: relative;
+}
+
+.map-pin {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.map-pin-inner {
+    width: 20px;
+    height: 20px;
+    background-color: #30588C; /* B'dazzled Blue */
+    border-radius: 50%;
+    box-shadow: 0 0 8px #30588C;
+}
+

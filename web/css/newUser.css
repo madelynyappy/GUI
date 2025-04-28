@@ -1,0 +1,402 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Apr 21, 2025, 12:06:54 PM
+    Author     : Madelyn Yap
+*/
+
+    /* Reset and base styles */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.5;
+      color: #333;
+      min-height: 100vh;
+    }
+    
+    /* Main layout */
+    .container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      position: relative;
+    }
+    
+    @media (min-width: 768px) {
+      .main-content {
+        flex-direction: row;
+      }
+    }
+    
+    /* Background */
+    .bg-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+    background-image: url('images/newUser.jpg');
+
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .bg-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(to right, rgba(15, 118, 110, 0.7), rgba(13, 148, 136, 0.4));
+    }
+    
+    /* Hero section */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    @media (min-width: 768px) {
+      .hero {
+        padding: 3rem;
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .hero {
+        padding: 6rem;
+      }
+    }
+    
+    .hero-content {
+      max-width: 32rem;
+    }
+    
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    
+    @media (min-width: 768px) {
+      .hero-title {
+        font-size: 3rem;
+      }
+    }
+    
+    .hero-description {
+      font-size: 1.125rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 2rem;
+    }
+    
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    @media (min-width: 640px) {
+      .button-group {
+        flex-direction: row;
+      }
+    }
+    
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.375rem;
+      font-weight: 500;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    
+    .button-primary {
+      background-color: #14b8a6;
+      color: white;
+      border: none;
+    }
+    
+    .button-primary:hover {
+      background-color: #0d9488;
+    }
+    
+    .button-outline {
+      background-color: transparent;
+      color: white;
+      border: 1px solid white;
+    }
+    
+    .button-outline:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .app-badges {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    .app-badge {
+      height: 2.5rem;
+    }
+    
+    /* Auth section */
+    .auth-container {
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      padding: 2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+    
+    @media (min-width: 768px) {
+      .auth-container {
+        width: 450px;
+        padding: 2rem;
+      }
+    }
+    
+    .auth-form-container {
+      width: 100%;
+      max-width: 24rem;
+    }
+    
+    /* Tabs */
+    .tabs {
+      width: 100%;
+    }
+    
+    .tab-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .tab-trigger {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 0.375rem;
+      padding: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .tab-trigger:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .tab-trigger.active {
+      background-color: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    /* Form */
+    .auth-form {
+      color: white;
+    }
+    
+    .form-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .form-subtitle {
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 1.5rem;
+      font-size: 0.875rem;
+    }
+    
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+    }
+    
+    .form-input-wrapper {
+      position: relative;
+    }
+    
+    .form-input-icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1rem;
+      height: 1rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 0.625rem 0.75rem 0.625rem 2.5rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 0.375rem;
+      color: white;
+      font-size: 0.875rem;
+    }
+    
+    .form-input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: #14b8a6;
+      box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.3);
+    }
+    
+    .form-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 0.75rem;
+    }
+    
+    .form-link {
+      color: #5eead4;
+      text-decoration: none;
+    }
+    
+    .form-link:hover {
+      text-decoration: underline;
+      color: #2dd4bf;
+    }
+    
+    .form-checkbox-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .form-checkbox {
+      width: 1rem;
+      height: 1rem;
+      border-radius: 0.25rem;
+      accent-color: #14b8a6;
+    }
+    
+    .form-submit {
+      width: 100%;
+      background-color: #14b8a6;
+      color: white;
+      border: none;
+      border-radius: 0.375rem;
+      padding: 0.75rem 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      margin-top: 1rem;
+    }
+    
+    .form-submit:hover {
+      background-color: #0d9488;
+    }
+    
+    .form-submit:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    
+    .form-separator {
+      display: flex;
+      align-items: center;
+      margin: 1.5rem 0;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.75rem;
+    }
+    
+    .form-separator::before,
+    .form-separator::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .form-separator span {
+      padding: 0 0.75rem;
+    }
+    
+    .social-button {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background-color: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      border-radius: 0.375rem;
+      padding: 0.625rem;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .social-button:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .social-icon {
+      width: 1rem;
+      height: 1rem;
+    }
+    
+    .switch-form {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      color: white;
+    }
+ 

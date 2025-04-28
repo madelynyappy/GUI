@@ -1,0 +1,207 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: linear-gradient(to right, #e0f0f5 0%, #30588C 50%, #e0f0f5 100%);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+  padding: 0 1rem;
+}
+
+.login-box {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: middle;
+  gap: 8px;
+  font-size: 14px;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.terms-text {
+  flex: 1;
+  word-break: break-word;
+}
+
+.checkbox-container input[type="checkbox"] {
+  margin: 0;
+  vertical-align: middle;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: flex-end; 
+  margin-top: 10px;     
+}
+
+.continue-btn {
+  padding: 8px 16px;
+  border-radius: 5px;
+  border: none;
+  background-color: #63a4ff;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.logo-container {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.logo-container img {
+  width: 120px;  
+  height: auto;
+}
+
+h2 {
+    font-family: 'Georgia', serif;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+form {
+    text-align: left;
+}
+
+label {
+    display: block;
+    font-size: 12px;
+    margin-top: 15px;
+    color: #555;
+}
+
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+input[type="password"],
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  padding-right: 40px;
+  border: 1px solid #aacdd2;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.eye-icon {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.forgot-password {
+    display: block;
+    margin: 10px 0;
+    font-size: 13px;
+    color: #4a63e7;
+    text-decoration: none;
+}
+
+.terms {
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.signup-section {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.signup-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.signup-title::before,
+.signup-title::after {
+  content: "";
+  flex: 1;
+  border-bottom: 2px solid #ccc;
+  margin: 0 10px;
+}
+
+.signup-button {
+  display: inline-block;
+  padding: 10px 25px;
+  border-radius: 25px;
+  border: 2px solid #000;
+  background: transparent;
+  font-weight: 600;
+  color: #000;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.signup-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px 30px;
+    border-radius: 12px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.modal .close {
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}

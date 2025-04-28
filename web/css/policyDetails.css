@@ -1,0 +1,148 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Apr 18, 2025, 4:38:03 PM
+    Author     : Madelyn Yap
+*/
+
+/* Global container */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Layout wrapper */
+.policy-container {
+    display: flex;
+    gap: 30px;
+    padding: 40px 60px;
+    align-items: flex-start;
+}
+
+/* Sidebar already defined earlier; reused */
+
+/* Main content */
+.policy-content {
+    flex: 1;
+    background-color: #fdfdfd;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+/* Headings */
+.policy-content h1 {
+    color: #30588C; /* B'dazzled Blue */
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.policy-content h2 {
+    color: #254559; /* Japanese Indigo */
+    font-size: 22px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+/* Paragraphs and lists */
+.policy-content p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+.policy-content ul {
+    margin: 10px 0 20px 20px;
+}
+
+.policy-content ul li {
+    margin-bottom: 8px;
+}
+
+/* Links */
+.policy-content a {
+    color: #6093BF; /* Silver Lake Blue */
+    text-decoration: none;
+}
+
+.policy-content a:hover {
+    text-decoration: underline;
+}
+
+
+.policy-sidebar {
+    background-color: #f7f7f7;
+    padding: 20px;
+    width: 250px;
+    border-radius: 8px;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-right: 30px;
+     position: sticky;
+    top: 100px; /* adjust based on your header height */
+    align-self: flex-start; /* ensures correct behavior in flex */
+}
+
+.policy-sidebar h3 {
+    font-size: 18px;
+    color: #30588C; /* B'dazzled Blue */
+    margin-bottom: 15px;
+}
+
+.policy-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.policy-sidebar ul li {
+    margin-bottom: 12px;
+}
+
+.policy-sidebar ul li a {
+    text-decoration: none;
+    color: #254559; /* Japanese Indigo */
+    transition: color 0.3s;
+    font-weight: 500;
+}
+
+.policy-sidebar ul li a:hover {
+    color: #6093BF; /* Silver Lake Blue */
+}
+
+.policy-hero {
+    background: linear-gradient(to right, #30588C, #6093BF);
+    color: white;
+    padding: 50px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom-left-radius: 100px;
+    border-bottom-right-radius: 100px;
+}
+
+.policy-hero-content h1 {
+    font-size: 36px;
+    margin: 0;
+}
+
+.policy-hero-content p {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.policy-hero-image img {
+    width: 280px;
+    max-width: 100%;
+}
+
+.policy-sidebar ul li i {
+    margin-right: 8px;
+    color: #30588C;
+}
+

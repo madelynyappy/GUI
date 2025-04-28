@@ -1,0 +1,362 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Apr 19, 2025, 4:57:47 PM
+    Author     : Madelyn Yap
+*/
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    background-color: #fdfdfd;
+    color: #254559;
+}
+
+.hero-banner {
+    position: relative;
+    height: 60vh;
+    background: url('../images/fithub-banner.jpg') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-banner h1 {
+    font-size: 3rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
+
+.mission-section {
+    padding: 50px 60px;
+    background-color: #EDEFF3; /* lavender gray */
+}
+
+.mission-section h2 {
+    color: #30588C;
+    text-align: center;
+}
+
+.mission-heading p {
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.mission-section ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.mission-section li {
+    margin: 10px 0;
+}
+
+.promo-section {
+    background-color: #6093BF;
+    color: white;
+    padding: 40px 60px;
+    text-align: center;
+}
+
+.promo-section h2 {
+    margin-bottom: 20px;
+}
+
+.promo-section .btn {
+    background-color: #254559;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+.site-overview {
+    padding: 50px 60px;
+    background-color: #f9f9f9;
+    color: #30588C;
+}
+
+.site-overview ul {
+    list-style: disc;
+    margin-left: 20px;
+}
+
+
+
+.brand-slider {
+    background-color: #ffffff;
+    padding: 30px 0;
+}
+
+.brand-slider-container {
+    width: 1000px;
+    overflow: hidden;
+    position: relative;
+      overflow: hidden;        /* Hide overflow to keep logos inside box */
+    margin: 0 auto;          /* Center the container */
+}
+
+.brand-track {
+    display: flex;
+    gap: 40px;
+    animation: scrollLeft 30s linear infinite;
+    width: max-content;
+}
+
+.brand-track img {
+    height: 110px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+/* Infinite scroll loop */
+@keyframes scrollLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* scroll halfway (since items are duplicated) */
+}
+
+.video-hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.video-overlay {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 20px;
+    background: rgba(0, 0, 0, 0.3); /* Optional: dark tint over video */
+}
+
+.video-overlay h1 {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.video-overlay p {
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+.mission-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 67px;
+  margin-top: 40px;
+}
+
+/* Reuse your existing card style or paste here if it's a new file */
+.card {
+  position: relative;
+  width: 300px;
+  height: 220px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  perspective: 1000px;
+  box-shadow: 0 0 0 5px #ffffff80;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card svg {
+  width: 48px;
+  height: 48px;
+  fill: #30588C;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.card__content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #fff;
+  transform: rotateX(-90deg);
+  transform-origin: bottom;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card:hover .card__content {
+  transform: rotateX(0deg);
+}
+
+.card__title {
+  margin: 0;
+  font-size: 20px;
+  color: #30588C;
+  font-weight: 700;
+}
+
+.card:hover svg {
+  scale: 0;
+}
+
+.card__description {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.4;
+}
+
+.site-overview {
+    padding: 60px 40px;
+    background-color: #EDEFF3;
+    text-align: center;
+}
+
+.site-overview h2 {
+    color: #30588C;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.site-overview p {
+    color: #254559;
+    font-size: 1rem;
+    margin-bottom: 40px;
+}
+
+/* Section wrapper */
+.site-overview {
+    padding: 60px 20px;
+    background-color: #EDEFF3;
+    color: #30588C;
+    text-align: center;
+}
+
+/* Headings */
+.site-overview h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.site-overview p {
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+    color: #254559;
+}
+
+/* Container to center grid */
+.overview-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Grid layout */
+.overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 0 10px;
+}
+
+/* Cards */
+.overview-card {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+    text-decoration: none;
+    color: #254559;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.overview-card:nth-child(1) { animation-delay: 0.1s; }
+.overview-card:nth-child(2) { animation-delay: 0.3s; }
+.overview-card:nth-child(3) { animation-delay: 0.5s; }
+
+/* Icons */
+.overview-card i {
+    font-size: 2.8rem;
+    color: #30588C;
+    margin-bottom: 15px;
+}
+
+/* Inner link list */
+.dropdown-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.dropdown-card ul li a {
+    color: #30588C;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.dropdown-card ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Hover effect */
+.overview-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Entry animation */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

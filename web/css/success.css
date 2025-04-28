@@ -1,0 +1,77 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 21 Apr 2025, 12:41:42 AM
+    Author     : Ong Yan Hong
+*/
+
+body {
+    margin: 0;
+    padding-top: 60px;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #e0f0f5 0%, #30588C 50%, #e0f0f5 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.logo-container img {
+  width: 120px;
+  height: auto;
+}
+
+.background {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.success-box {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  padding: 40px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.success-card img.badge {
+  width: 120px;
+  height: auto;
+}
+
+.success-card h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.success-card p {
+  font-size: 16px;
+  margin-bottom: 30px;
+  color: #555;
+}
+
+.back-btn {
+  background-color: #4a90e2;
+  color: white;
+  text-decoration: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.back-btn:hover {
+  background-color: #357abd;
+}

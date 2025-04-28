@@ -1,0 +1,90 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/ 
+/* 
+    Created on : Apr 14, 2025, 3:06:06 PM
+    Author     : Madelyn Yap
+*/
+
+.footer {
+    background-color: #30588C; /* B'dazzled Blue */
+    color: #FAF9F6; /* Warm White */
+    padding: 20px 0 10px;
+    font-family: 'Segoe UI', sans-serif;
+    border-top: 1px solid #254559; /* Japanese Indigo */
+}
+
+.footer-title {
+    color: #011526; /* Rich Black (FOGRA29) */
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    transition: transform 0.3s ease;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #6093BF; /* Silver Lake Blue */
+}
+
+.footer-title:hover {
+    transform: scale(1.05);
+}
+
+.footer-container {
+    display: grid; 
+    grid-template-columns: 1fr 1fr 1fr 1.5fr;
+    justify-content: center; 
+    gap: 80px; 
+    max-width: 1200px; 
+    margin: 0 auto;
+    padding: 40px 20px;
+    padding: 40px 20px; 
+}
+
+.footer-column {
+    margin-bottom: 5px;
+}
+
+.footer-column h3 {
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+    color: #FAF9F6; /* Warm White */
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 8px;
+    color: #FAF9F6;
+}
+
+.footer-column ul li a {
+    color: #FAF9F6;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-column ul li a:hover {
+    color: #C0C7D2; /* Lavender Gray */
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #6093BF;
+    font-style: italic;
+    color: #FAF9F6;
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+}

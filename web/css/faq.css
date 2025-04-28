@@ -1,0 +1,118 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #30588C, #254559); 
+    color: #f0f0f5;
+    margin: 0;
+    padding: 40px 20px;
+}
+
+.faq-header {
+    text-align: center;
+    margin-top: 80px;
+}
+
+.faq-wrapper {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 40px 30px;
+    background: linear-gradient(135deg, #4e6fae, #7c9bc8);;
+    border-radius: 18px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.faq-section {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-section h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #f0f0f5;
+}
+
+.faq-item {
+    background: linear-gradient(135deg, #30588C, #254559); 
+    padding: 20px 25px;
+    margin-bottom: 24px;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.35);
+    border-left: 6px solid #6093BF; 
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.faq-item:hover {
+    transform: translateY(-6px);
+    background: linear-gradient(135deg, #6093BF, #30588C); 
+    box-shadow: 0 12px 24px rgba(96, 147, 191, 0.7), 0 0 10px rgba(96, 147, 191, 0.4);
+    border-left: 6px solid #ffffff;
+}
+
+.faq-question {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+}
+
+.faq-item:active {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(96, 147, 191, 0.5);
+}
+
+.faq-item.active .faq-answer {
+    max-height: 500px;
+    padding-top: 10px;
+}
+
+.faq-item .icon {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.faq-item.active .icon {
+    transform: rotate(180deg);
+}
+
+.faq-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 60px auto 30px; 
+}
+
+.faq-tabs a {
+    display: inline-block;
+    padding: 10px 18px;
+    background-color: #ffffff;
+    color: #30588C;
+    text-decoration: none;
+    border-radius: 30px;
+    border: 2px solid #30588C;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.faq-tabs a:hover {
+    background-color: #6093BF;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(48, 88, 140, 0.3);
+}
