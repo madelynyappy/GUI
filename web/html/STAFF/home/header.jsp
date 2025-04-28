@@ -69,11 +69,6 @@
                 </li>
             </ul>
         </nav>
-
-        <!-- Main Content Area -->
-        <div class="container-fluid mt-4">
-            <h1 class="h3">Main Content Goes Here</h1>
-        </div>
     </div>
 
 <!-- Bootstrap JS -->

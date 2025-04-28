@@ -1,0 +1,30 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package model;
+
+/**
+ *
+ * @author Madelyn Yap
+ */
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class DBConnector {
+    public static Connection getConnection() throws SQLException {
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver"); 
+            return DriverManager.getConnection(
+                "jdbc:derby://localhost:1527/fithubdb", // Your database URL
+                "app",   // Default username (check your NetBeans database username)
+                "app"    // Default password (check your NetBeans database password)
+            );
+        } catch (ClassNotFoundException e) {
+            throw new SQLException("Derby Driver not found", e);
+        }
+    }
+}
+

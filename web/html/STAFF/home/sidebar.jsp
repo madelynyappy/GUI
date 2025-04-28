@@ -27,12 +27,6 @@
 
     <div class="list-group list-group-flush">
 
-        <!-- Core Section -->
-        <div class="px-3 text-secondary text-uppercase small fw-bold mt-3 mb-2">Core</div>
-        <a href="dashboard.jsp" class="list-group-item list-group-item-action bg-light">
-            <i class="fas fa-tachometer-alt me-2"></i> Dashboard
-        </a>
-
         <!-- Interface Section -->
         <div class="px-3 text-secondary text-uppercase small fw-bold mt-4 mb-2">Main</div>
 
