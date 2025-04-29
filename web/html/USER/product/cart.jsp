@@ -6,6 +6,15 @@
 
 <%@page import="java.util.*, model.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<% 
+    HttpSession userSession = request.getSession(false);
+    if (userSession == null || userSession.getAttribute("customerID") == null) {
+        response.sendRedirect(request.getContextPath() + "/html/USER/signInSignUp/signIn.jsp");
+        return;
+    }
+%>
+
 <%
     List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
 %>
@@ -74,9 +83,8 @@
         <br><br>
 
         <a href="<%=request.getContextPath()%>/html/USER/product/checkout.jsp">
-    <button type="button">Proceed to Checkout</button>
-</a>
-
+            <button type="button">Proceed to Checkout</button>
+        </a>
 
     <% } %>
 

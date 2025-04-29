@@ -7,6 +7,7 @@ package model;
 /**
  *
  * @author Madelyn Yap
+ * will not be using jdbc afterwards 
  */
 
 import java.sql.Connection;
