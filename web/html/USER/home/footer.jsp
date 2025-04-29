@@ -24,6 +24,7 @@
             <div class="footer-container">
 
                 <div class="footer-column">
+                    <%= application.getInitParameter("companyName") %>
                     <h3>Company Info</h3>
                     <ul>
                         <li><a href="../../USER/home/aboutUs.jsp">About Us</a></li>
@@ -56,17 +57,18 @@
                     <h3>Get In Touch</h3>
                     <ul>
                         <li>Phone number (+60)123456789</li>
+                       
                         <li>Lot S-29 & S-30, 2nd Floor,</li>
                         <li>Mid Valley Megamall, Lingkaran Syed Putra,</li>
                         <li> Mid Valley City, 59200 Kuala Lumpur,</li>
                         <li>Wilayah Persekutuan Kuala Lumpur</li>
-                        <li>Email: fithub888@gmail.com</li>
+                        <li> <%= application.getInitParameter("companyEmail") %> </li>
                     </ul>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                Made With Love By FITHUB All Right Reserved
+                <%= application.getInitParameter("copyright") %>
             </div>
         </footer>
     </body>

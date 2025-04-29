@@ -19,7 +19,6 @@ import model.DBConnector;
 
 @WebServlet("/OrderHistoryServlet")
 public class OrderHistoryServlet extends HttpServlet {
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -30,35 +29,57 @@ public class OrderHistoryServlet extends HttpServlet {
         }
 
         String customerID = (String) session.getAttribute("customerID");
-        List<Map<String, Object>> orders = new ArrayList<>();
+        Map<String, Map<String, Object>> groupedOrders = new LinkedHashMap<>();
+        String customerName = "";
 
         try (Connection conn = DBConnector.getConnection()) {
-            String sql = "SELECT o.orderID, o.orderDate, o.totalAmount, o.paymentMethod, o.discount, i.productID, i.quantity, i.price " +
+            String sql = "SELECT o.orderID, o.orderDate, o.totalAmount, o.paymentMethod, o.discount, " +
+                         "i.productID, i.quantity, i.price, c.customerName " +
                          "FROM Orders o " +
                          "JOIN OrderItem i ON o.orderID = i.orderID " +
+                         "JOIN Customer c ON o.customerID = c.customerID " +
                          "WHERE o.customerID = ? " +
                          "ORDER BY o.orderDate DESC";
 
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, customerID);
-
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Map<String, Object> row = new HashMap<>();
-                row.put("orderID", rs.getString("orderID"));
-                row.put("orderDate", rs.getTimestamp("orderDate"));
-                row.put("totalAmount", rs.getDouble("totalAmount"));
-                row.put("paymentMethod", rs.getString("paymentMethod"));
-                row.put("discount", rs.getDouble("discount"));
-                row.put("productID", rs.getString("productID"));
-                row.put("quantity", rs.getInt("quantity"));
-                row.put("price", rs.getDouble("price"));
-                orders.add(row);
+                String orderID = rs.getString("orderID");
+
+                // Fetch customer name only once
+                if (customerName.isEmpty()) {
+                    customerName = rs.getString("customerName");
+                }
+
+                Map<String, Object> order;
+                List<Map<String, Object>> items;
+
+                if (!groupedOrders.containsKey(orderID)) {
+                    order = new HashMap<>();
+                    items = new ArrayList<>();
+                    order.put("orderDate", rs.getTimestamp("orderDate"));
+                    order.put("totalAmount", rs.getDouble("totalAmount"));
+                    order.put("paymentMethod", rs.getString("paymentMethod"));
+                    order.put("discount", rs.getDouble("discount"));
+                    order.put("items", items);
+                    groupedOrders.put(orderID, order);
+                } else {
+                    order = groupedOrders.get(orderID);
+                    items = (List<Map<String, Object>>) order.get("items");
+                }
+
+                Map<String, Object> item = new HashMap<>();
+                item.put("productID", rs.getString("productID"));
+                item.put("quantity", rs.getInt("quantity"));
+                item.put("price", rs.getDouble("price"));
+                items.add(item);
             }
 
-            request.setAttribute("orderList", orders);
-            RequestDispatcher rd = request.getRequestDispatcher("/html/USER/order/orderHistory.jsp");
+            request.setAttribute("customerName", customerName);
+            request.setAttribute("orders", groupedOrders);
+            RequestDispatcher rd = request.getRequestDispatcher("/html/USER/product/orderHistory.jsp");
             rd.forward(request, response);
 
         } catch (Exception e) {
@@ -67,4 +88,3 @@ public class OrderHistoryServlet extends HttpServlet {
         }
     }
 }
-

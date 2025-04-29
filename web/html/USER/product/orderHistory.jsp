@@ -8,56 +8,88 @@
 <%@page import="java.util.*"%>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Order History</title>
+    <style>
+
+        .order-box {
+            border: 1px solid #cccccc;
+            padding: 20px;
+            margin-bottom: 30px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        .order-header {
+            background-color: #e0e0e0;
+            padding: 10px;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #cccccc;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        .total-line {
+            text-align: right;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h1>Your Order History</h1>
 
-    <%
-        List<Map<String, Object>> orders = (List<Map<String, Object>>) request.getAttribute("orderList");
-        if (orders == null || orders.isEmpty()) {
-    %>
-        <p>You haven't placed any orders yet.</p>
-    <% } else { 
-        String lastOrderID = "";
-    %>
-        <table border="1" cellpadding="8">
+<h1>Your Order History - <%= request.getAttribute("customerName") %></h1>
+
+<%
+    Map<String, Map<String, Object>> orders = (Map<String, Map<String, Object>>) request.getAttribute("orders");
+    for (Map.Entry<String, Map<String, Object>> entry : orders.entrySet()) {
+        String orderID = entry.getKey();
+        Map<String, Object> orderData = entry.getValue();
+        List<Map<String, Object>> items = (List<Map<String, Object>>) orderData.get("items");
+%>
+    <div style="margin-bottom: 40px; border: 1px solid #ccc; padding: 15px;">
+        <strong>Order ID:</strong> <%= orderID %> |
+        <strong>Date:</strong> <%= orderData.get("orderDate") %> |
+        <strong>Payment:</strong> <%= orderData.get("paymentMethod") %> |
+        <strong>Discount:</strong> MYR <%= orderData.get("discount") %><br/>
+        <strong>Total:</strong> MYR <%= orderData.get("totalAmount") %>
+
+        <table border="1" style="width: 100%; margin-top: 10px;">
             <tr>
-                <th>Order ID</th>
-                <th>Date</th>
-                <th>Payment</th>
-                <th>Discount</th>
                 <th>Product ID</th>
-                <th>Qty</th>
-                <th>Price</th>
+                <th>Quantity</th>
+                <th>Unit Price (MYR)</th>
+                <th>Subtotal (MYR)</th>
             </tr>
-            <% for (Map<String, Object> order : orders) {
-                String orderID = (String) order.get("orderID");
-                if (!orderID.equals(lastOrderID)) {
+            <%
+                for (Map<String, Object> item : items) {
+                    double price = (Double) item.get("price");
+                    int qty = (Integer) item.get("quantity");
+                    double subtotal = price * qty;
             %>
-                <tr style="background-color: #f0f0f0;">
-                    <td><%= orderID %></td>
-                    <td><%= order.get("orderDate") %></td>
-                    <td><%= order.get("paymentMethod") %></td>
-                    <td>MYR <%= String.format("%.2f", order.get("discount")) %></td>
-                    <td colspan="3"></td>
+                <tr>
+                    <td><%= item.get("productID") %></td>
+                    <td><%= qty %></td>
+                    <td><%= String.format("%.2f", price) %></td>
+                    <td><%= String.format("%.2f", subtotal) %></td>
                 </tr>
-            <% 
-                lastOrderID = orderID;
-                }
-            %>
-            <tr>
-                <td></td><td></td><td></td><td></td>
-                <td><%= order.get("productID") %></td>
-                <td><%= order.get("quantity") %></td>
-                <td>MYR <%= String.format("%.2f", order.get("price")) %></td>
-            </tr>
             <% } %>
         </table>
-    <% } %>
+    </div>
+<% } %>
 
-    <br>
-    <a href="<%=request.getContextPath()%>/html/USER/home/home.jsp">Back to Home</a>
+
+<br>
+<a href="<%=request.getContextPath()%>/html/USER/home/home.jsp">Back to Home</a>
+
 </body>
 </html>
-
