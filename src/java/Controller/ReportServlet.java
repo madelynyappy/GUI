@@ -48,21 +48,27 @@ public class ReportServlet extends HttpServlet {
                     break;
 
                 case "monthly":
-                    if (selectedMonth == null || selectedMonth.isEmpty()) {
-                        request.setAttribute("reportType", type);
-                        request.setAttribute("reportData", null);
-                        request.getRequestDispatcher("/html/STAFF/report/report.jsp").forward(request, response);
-                        return;
-                    }
-                    sql = "SELECT SUBSTR(o.orderDate, 6, 2) AS \"month\", SUBSTR(o.orderDate, 1, 4) AS \"year\", " +
-                          "SUM(i.price * i.quantity) AS monthlyTotal FROM Orders o " +
-                          "JOIN OrderItem i ON o.orderID = i.orderID " +
-                          "WHERE SUBSTR(o.orderDate, 6, 2) = ? " +
-                          "GROUP BY SUBSTR(o.orderDate, 1, 4), SUBSTR(o.orderDate, 6, 2) " +
-                          "ORDER BY \"year\" DESC, \"month\" DESC";
-                    ps = conn.prepareStatement(sql);
-                    ps.setString(1, String.format("%02d", Integer.parseInt(selectedMonth)));
-                    break;
+                if (selectedMonth == null || selectedMonth.isEmpty()) {
+                    request.setAttribute("reportType", type);
+                    request.setAttribute("reportData", null);
+                    request.getRequestDispatcher("/html/STAFF/report/report.jsp").forward(request, response);
+                    return;
+                }
+
+                sql = "SELECT MONTHNAME(o.orderDate) AS `Month Name`, " +
+                        "YEAR(o.orderDate) AS `Year`, " +
+                        "SUM(i.price * i.quantity) AS `Monthly Total` " +
+                        "FROM Orders o " +
+                        "JOIN OrderItem i ON o.orderID = i.orderID " +
+                        "WHERE MONTH(o.orderDate) = ? " +
+                        "GROUP BY MONTHNAME(o.orderDate), YEAR(o.orderDate) " +
+                        "ORDER BY YEAR(o.orderDate) DESC";
+
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, Integer.parseInt(selectedMonth));
+                break;
+
+
 
                 case "yearly":
                     if (selectedYear == null || selectedYear.isEmpty()) {
