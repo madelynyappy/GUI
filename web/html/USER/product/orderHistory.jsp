@@ -6,24 +6,18 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.*"%>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Order History</title>
     <style>
-
         .order-box {
             border: 1px solid #cccccc;
             padding: 20px;
             margin-bottom: 30px;
             background-color: #f9f9f9;
             border-radius: 8px;
-        }
-        .order-header {
-            background-color: #e0e0e0;
-            padding: 10px;
-            font-weight: bold;
-            border-radius: 5px;
         }
         table {
             width: 100%;
@@ -38,16 +32,24 @@
         th {
             background-color: #f0f0f0;
         }
-        .total-line {
-            text-align: right;
-            margin-top: 10px;
+        .bar-container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 400px;
+            margin-top: 5px;
+        }
+        .status-step {
+            flex: 1;
+            text-align: center;
             font-weight: bold;
         }
-        
-        .status-packaging { color: #30588C; }
-.status-shipping { color: #6093BF; }
-.status-delivered { color: #254559; }
-
+        .bar-fill {
+            height: 8px;
+            border-radius: 6px;
+            margin-top: 4px;
+            width: 100%;
+            background: #ccc;
+        }
     </style>
 </head>
 <body>
@@ -60,15 +62,31 @@
         String orderID = entry.getKey();
         Map<String, Object> orderData = entry.getValue();
         List<Map<String, Object>> items = (List<Map<String, Object>>) orderData.get("items");
+        String status = (String) orderData.get("orderStatus");
+        if (status == null) status = "";
 %>
-    <div style="margin-bottom: 40px; border: 1px solid #ccc; padding: 15px;">
+    <div class="order-box">
         <strong>Order ID:</strong> <%= orderID %> |
         <strong>Date:</strong> <%= orderData.get("orderDate") %> |
         <strong>Payment:</strong> <%= orderData.get("paymentMethod") %> |
         <strong>Discount:</strong> MYR <%= orderData.get("discount") %><br/>
-        <strong>Total:</strong> MYR <%= orderData.get("totalAmount") %>
+        <strong>Total:</strong> MYR <%= orderData.get("totalAmount") %><br/>
+        <strong>Status:</strong> <%= (!status.isEmpty()) ? status : "Not yet assigned" %>
 
-        <table border="1" style="width: 100%; margin-top: 10px;">
+        <!-- VISUAL STATUS BAR -->
+<div class="bar-container">
+    <div class="status-step" style="color:<%= "Packaging".equals(status) ? "#E53935" : "#ccc" %>;">Packaging</div>
+    <div class="status-step" style="color:<%= "Shipping".equals(status) ? "#FB8C00" : "#ccc" %>;">Shipping</div>
+    <div class="status-step" style="color:<%= "Delivered".equals(status) ? "#43A047" : "#ccc" %>;">Delivered</div>
+</div>
+<div class="bar-fill" style="background: linear-gradient(to right,
+    <%= "Packaging".equals(status) ? "#E53935" : "#ccc" %> 33%,
+    <%= "Shipping".equals(status) ? "#FB8C00" : "#ccc" %> 66%,
+    <%= "Delivered".equals(status) ? "#43A047" : "#ccc" %> 100%);">
+</div>
+
+
+        <table>
             <tr>
                 <th>Product ID</th>
                 <th>Quantity</th>
@@ -88,21 +106,9 @@
                     <td><%= String.format("%.2f", subtotal) %></td>
                 </tr>
             <% } %>
-            
-            <!-- check order status  -->
-             <c:forEach var="order" items="${orderList}">
-        <tr>
-            <td>${order.orderID}</td>
-            <td>${order.date}</td>
-            <td>RM ${order.total}</td>
-            <td><span class="status">${order.status}</span></td>
-        </tr>
-    </c:forEach>
-            
         </table>
     </div>
 <% } %>
-
 
 <br>
 <a href="<%=request.getContextPath()%>/html/USER/home/home.jsp">Back to Home</a>

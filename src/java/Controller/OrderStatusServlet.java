@@ -27,36 +27,40 @@ public class OrderStatusServlet extends HttpServlet {
         Map<String, Map<String, Object>> orders = new LinkedHashMap<>();
 
         try (Connection conn = DBConnector.getConnection()) {
-            String sql = "SELECT o.orderID, o.orderDate, o.paymentMethod, o.totalAmount, o.discount, o.status, " +
-                         "i.productID, i.quantity, i.price " +
-                         "FROM Orders o JOIN OrderItem i ON o.orderID = i.orderID " +
-                         "ORDER BY o.orderDate DESC";
+            // DERBY REQUIRES SCHEMA PREFIX: APP.ORDERS and APP.ORDERITEM
+            String sql = "SELECT o.ORDERID, o.ORDERDATE, o.PAYMENTMETHOD, o.TOTALAMOUNT, o.DISCOUNT, o.STATUS, " +
+                         "i.PRODUCTID, i.QUANTITY, i.PRICE " +
+                         "FROM APP.ORDERS o JOIN APP.ORDERITEM i ON o.ORDERID = i.ORDERID " +
+                         "ORDER BY o.ORDERDATE DESC";
 
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                String orderID = rs.getString("orderID");
+                String orderID = rs.getString("ORDERID");
 
                 Map<String, Object> orderData = orders.getOrDefault(orderID, new HashMap<>());
 
-                orderData.put("orderDate", rs.getTimestamp("orderDate"));
-                orderData.put("paymentMethod", rs.getString("paymentMethod"));
-                orderData.put("totalAmount", rs.getDouble("totalAmount"));
-                orderData.put("discount", rs.getDouble("discount"));
-                orderData.put("orderStatus", rs.getString("status")); // match JSP field
+                orderData.put("orderDate", rs.getTimestamp("ORDERDATE"));
+                orderData.put("paymentMethod", rs.getString("PAYMENTMETHOD"));
+                orderData.put("totalAmount", rs.getDouble("TOTALAMOUNT"));
+                orderData.put("discount", rs.getDouble("DISCOUNT"));
+                orderData.put("orderStatus", rs.getString("STATUS")); // match JSP key
 
                 List<Map<String, Object>> items = (List<Map<String, Object>>) orderData.getOrDefault("items", new ArrayList<>());
 
                 Map<String, Object> item = new HashMap<>();
-                item.put("productID", rs.getString("productID"));
-                item.put("quantity", rs.getInt("quantity"));
-                item.put("price", rs.getDouble("price"));
+                item.put("productID", rs.getString("PRODUCTID"));
+                item.put("quantity", rs.getInt("QUANTITY"));
+                item.put("price", rs.getDouble("PRICE"));
                 items.add(item);
 
                 orderData.put("items", items);
                 orders.put(orderID, orderData);
             }
+
+            // Debug: log how many orders were found
+            System.out.println("Orders fetched: " + orders.size());
 
             request.setAttribute("orders", orders);
             RequestDispatcher rd = request.getRequestDispatcher("/html/STAFF/product/orderStatus.jsp");
@@ -76,18 +80,19 @@ public class OrderStatusServlet extends HttpServlet {
         String status = request.getParameter("orderStatus");
 
         try (Connection conn = DBConnector.getConnection()) {
-            String sql = "UPDATE Orders SET status = ? WHERE orderID = ?";
+            String sql = "UPDATE APP.ORDERS SET STATUS = ? WHERE ORDERID = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, status);
             ps.setString(2, orderID);
             ps.executeUpdate();
+
+            System.out.println("Updated order " + orderID + " to status: " + status);
 
             response.sendRedirect(request.getContextPath() + "/OrderStatusServlet");
 
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect(request.getContextPath() + "/html/ERROR/500error.jsp");
-            
         }
     }
 }

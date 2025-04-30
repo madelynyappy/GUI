@@ -9,6 +9,7 @@ package Controller;
  * @author Madelyn Yap
  */
 
+
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -33,7 +34,7 @@ public class OrderHistoryServlet extends HttpServlet {
         String customerName = "";
 
         try (Connection conn = DBConnector.getConnection()) {
-            String sql = "SELECT o.orderID, o.orderDate, o.totalAmount, o.paymentMethod, o.discount, " +
+            String sql = "SELECT o.orderID, o.orderDate, o.totalAmount, o.paymentMethod, o.discount, o.status, " +
                          "i.productID, i.quantity, i.price, c.customerName " +
                          "FROM Orders o " +
                          "JOIN OrderItem i ON o.orderID = i.orderID " +
@@ -63,6 +64,7 @@ public class OrderHistoryServlet extends HttpServlet {
                     order.put("totalAmount", rs.getDouble("totalAmount"));
                     order.put("paymentMethod", rs.getString("paymentMethod"));
                     order.put("discount", rs.getDouble("discount"));
+                    order.put("orderStatus", rs.getString("status")); // ✅ INCLUDE STATUS
                     order.put("items", items);
                     groupedOrders.put(orderID, order);
                 } else {
