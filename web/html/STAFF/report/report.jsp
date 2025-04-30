@@ -1,8 +1,3 @@
-<%-- 
-    Document   : report
-    Created on : Apr 29, 2025, 11:14:20 PM
-    Author     : Madelyn Yap
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.*" %>
@@ -16,39 +11,52 @@
 <h1>Sales Report</h1>
 
 <div class="button-group">
+
     <form method="get" action="${pageContext.request.contextPath}/ReportServlet">
-        <button type="submit" name="type" value="top10">Top 10 Sold Products</button>
-        <button type="submit" name="type" value="daily">Daily Sales</button>
-
-        <select name="month">
-            <option value="">Select Month</option>
-            <option value="1">January</option>
-            <option value="2">February</option>
-            <option value="3">March</option>
-            <option value="4">April</option>
-            <option value="5">May</option>
-            <option value="6">June</option>
-            <option value="7">July</option>
-            <option value="8">August</option>
-            <option value="9">September</option>
-            <option value="10">October</option>
-            <option value="11">November</option>
-            <option value="12">December</option>
-        </select>
-        <button type="submit" name="type" value="monthly">Monthly Sales</button>
-
-        <select name="year">
-            <option value="">Select Year</option>
-<%
-            for (int year = 2025; year <= Calendar.getInstance().get(Calendar.YEAR); year++) {
-%>
-            <option value="<%= year %>"><%= year %></option>
-<%
-            }
-%>
-        </select>
-        <button type="submit" name="type" value="yearly">Yearly Sales</button>
+        <div class="report-buttons">
+            <button type="submit" name="type" value="top10">Top 10 Sold Products</button>
+        </div>
     </form>
+
+    <form method="get" action="${pageContext.request.contextPath}/ReportServlet" id="dailyForm">
+        <div class="report-buttons">
+            <button type="button" onclick="toggleDropdown('daily')">Daily Sales</button>
+        </div>
+        <div class="dropdown-inputs">
+            <div id="daily-dropdown" class="dropdown-container" style="display: none;">
+                <input type="hidden" name="type" value="daily">
+                <input type="date" name="date" required>
+                <button type="submit" class="submit-btn">Generate Daily Report</button>
+            </div>
+        </div>
+    </form>
+
+    <form method="get" action="${pageContext.request.contextPath}/ReportServlet" id="monthlyForm">
+        <div class="report-buttons">
+            <button type="button" onclick="toggleDropdown('monthly')">Monthly Sales</button>
+        </div>
+        <div class="dropdown-inputs">
+            <div id="monthly-dropdown" class="dropdown-container" style="display: none;">
+                <input type="hidden" name="type" value="monthly">
+                <input type="month" name="monthInput" id="monthInput" required>
+                <button type="submit" class="submit-btn">Generate Monthly Report</button>
+            </div>
+        </div>
+    </form>
+
+    <form method="get" action="${pageContext.request.contextPath}/ReportServlet" id="yearlyForm">
+        <div class="report-buttons">
+            <button type="button" onclick="toggleDropdown('yearly')">Yearly Sales</button>
+        </div>
+        <div class="dropdown-inputs">
+            <div id="yearly-dropdown" class="dropdown-container" style="display: none;">
+                <input type="hidden" name="type" value="yearly">
+                <select name="year" required></select>
+                <button type="submit" class="submit-btn">Generate Yearly Report</button>
+            </div>
+        </div>
+    </form>
+
 </div>
 
 <%
@@ -95,5 +103,61 @@
 <%
     }
 %>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const today = new Date();
+    const todayMonth = today.toISOString().slice(0, 7);
+    const todayDate = today.toISOString().split('T')[0];
+
+    const dateInput = document.querySelector('#dailyForm input[type="date"]');
+    const monthInput = document.getElementById('monthInput');
+    const yearSelect = document.querySelector('#yearlyForm select');
+
+    function loadDateRange(callback) {
+        fetch('${pageContext.request.contextPath}/ReportServlet?type=dateRange')
+            .then(response => response.json())
+            .then(data => callback(data.data))
+            .catch(err => console.error('Error:', err));
+    }
+
+    window.toggleDropdown = function(type) {
+        document.getElementById('daily-dropdown').style.display = 'none';
+        document.getElementById('monthly-dropdown').style.display = 'none';
+        document.getElementById('yearly-dropdown').style.display = 'none';
+
+        if (type === 'daily') {
+            document.getElementById('daily-dropdown').style.display = 'block';
+            loadDateRange(minDate => {
+                dateInput.min = minDate;
+                dateInput.max = todayDate;
+            });
+        }
+
+        if (type === 'monthly') {
+            document.getElementById('monthly-dropdown').style.display = 'block';
+            loadDateRange(minDate => {
+                monthInput.min = minDate.slice(0, 7);
+                monthInput.max = todayMonth;
+            });
+        }
+
+        if (type === 'yearly') {
+            document.getElementById('yearly-dropdown').style.display = 'block';
+            loadDateRange(minDate => {
+                const minYear = new Date(minDate).getFullYear();
+                const currentYear = today.getFullYear();
+                yearSelect.innerHTML = '';
+                for (let y = currentYear; y >= minYear; y--) {
+                    const opt = document.createElement('option');
+                    opt.value = y;
+                    opt.textContent = y;
+                    yearSelect.appendChild(opt);
+                }
+            });
+        }
+    };
+});
+</script>
 </body>
 </html>

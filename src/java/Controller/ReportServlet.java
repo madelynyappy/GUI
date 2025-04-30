@@ -17,16 +17,46 @@ import java.sql.*;
 import java.util.*;
 import model.DBConnector;
 
-@WebServlet("/ReportServlet")
+@WebServlet(name = "ReportServlet", urlPatterns = {"/ReportServlet"})
 public class ReportServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String type = request.getParameter("type");
-        String selectedMonth = request.getParameter("month");
-        String selectedYear = request.getParameter("year");
+        
+        // Handle dateRange requests
+        if ("dateRange".equals(type)) {
+            handleDateRangeRequest(request, response);
+        }else{
+            getReportData(request, response);
+        }
 
+    }
+
+        private void handleDateRangeRequest(HttpServletRequest request, HttpServletResponse response) {
+        try (Connection conn = DBConnector.getConnection()) {
+            String sql = "SELECT MIN(orderDate) AS minDate FROM Orders";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            String result = "";
+            if (rs.next()) {
+                result = rs.getString("minDate");
+            }
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write("{\"data\": \"" + result + "\"}");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    private void getReportData(HttpServletRequest request, HttpServletResponse response) {
+        String type = request.getParameter("type");
         List<Map<String, Object>> reportData = new ArrayList<>();
 
         try (Connection conn = DBConnector.getConnection()) {
@@ -35,59 +65,80 @@ public class ReportServlet extends HttpServlet {
 
             switch (type) {
                 case "top10":
-                    sql = "SELECT productID, SUM(quantity) AS totalSold FROM OrderItem " +
-                          "GROUP BY productID ORDER BY totalSold DESC FETCH FIRST 10 ROWS ONLY";
+                    sql = "SELECT p.productName, SUM(i.quantity) AS totalSold, SUM(i.price * i.quantity) AS totalRevenue " +
+                          "FROM OrderItem i " +
+                          "JOIN Product p ON i.productID = p.productID " +
+                          "GROUP BY p.productID, p.productName " +
+                          "ORDER BY totalSold DESC FETCH FIRST 10 ROWS ONLY";
                     ps = conn.prepareStatement(sql);
                     break;
 
                 case "daily":
-                    sql = "SELECT o.orderDate, SUM(i.price * i.quantity) AS dailyTotal FROM Orders o " +
-                          "JOIN OrderItem i ON o.orderID = i.orderID " +
-                          "GROUP BY o.orderDate ORDER BY o.orderDate DESC";
-                    ps = conn.prepareStatement(sql);
-                    break;
-
-                case "monthly":
-                if (selectedMonth == null || selectedMonth.isEmpty() || selectedYear == null || selectedYear.isEmpty()) {
-                    request.setAttribute("reportType", type);
-                    request.setAttribute("reportData", null);
-                    request.getRequestDispatcher("/html/STAFF/report/report.jsp").forward(request, response);
-                    return;
-                }
-
-                sql = "SELECT MONTHNAME(o.orderDate) AS `Month Name`, " +
-                      "MONTH(o.orderDate) AS `Month`, " +
-                      "YEAR(o.orderDate) AS `Year`, " +
-                      "SUM(i.price * i.quantity) AS `Monthly Total` " +
-                      "FROM Orders o " +
-                      "JOIN OrderItem i ON o.orderID = i.orderID " +
-                      "WHERE MONTH(o.orderDate) = ? AND YEAR(o.orderDate) = ? " +
-                      "GROUP BY `Month Name`, `Month`, `Year` " +
-                      "ORDER BY `Year` DESC, `Month` DESC";
-
-                ps = conn.prepareStatement(sql);
-                ps.setInt(1, Integer.parseInt(selectedMonth));
-                ps.setInt(2, Integer.parseInt(selectedYear));
-                break;
-
-
-
-                case "yearly":
-                    if (selectedYear == null || selectedYear.isEmpty()) {
+                    String date = request.getParameter("date");
+                    if (date == null || date.isEmpty()) {
                         request.setAttribute("reportType", type);
                         request.setAttribute("reportData", null);
                         request.getRequestDispatcher("/html/STAFF/report/report.jsp").forward(request, response);
                         return;
                     }
-                    sql = "SELECT SUBSTR(o.orderDate, 1, 4) AS \"year\", SUM(i.price * i.quantity) AS yearlyTotal " +
-                          "FROM Orders o JOIN OrderItem i ON o.orderID = i.orderID " +
-                          "WHERE SUBSTR(o.orderDate, 1, 4) = ? " +
-                          "GROUP BY SUBSTR(o.orderDate, 1, 4) ORDER BY \"year\" DESC";
+                    
+                    sql = "SELECT o.orderDate, COUNT(DISTINCT o.orderID) AS totalOrders, " +
+                          "SUM(i.quantity) AS totalItems, SUM(i.price * i.quantity) AS dailyTotal " +
+                          "FROM Orders o " +
+                          "JOIN OrderItem i ON o.orderID = i.orderID " +
+                          "WHERE DATE(o.orderDate) = ? " +
+                          "GROUP BY o.orderDate";
                     ps = conn.prepareStatement(sql);
-                    ps.setString(1, selectedYear);
+                    ps.setString(1, date);
+                    break;
+
+                case "monthly":
+                    String monthInput = request.getParameter("monthInput");
+                    if (monthInput == null || monthInput.isEmpty()) {
+                        request.setAttribute("reportType", type);
+                        request.setAttribute("reportData", null);
+                        request.getRequestDispatcher("/html/STAFF/report/report.jsp").forward(request, response);
+                        return;
+                    }
+                    
+                    sql = "SELECT CAST(o.orderDate AS DATE) AS date, " +
+                          "COUNT(DISTINCT o.orderID) AS totalOrders, " +
+                          "SUM(i.quantity) AS totalItems, " +
+                          "SUM(i.price * i.quantity) AS dailyTotal " +
+                          "FROM Orders o " +
+                          "JOIN OrderItem i ON o.orderID = i.orderID " +
+                          "WHERE YEAR(o.orderDate) = ? AND MONTH(o.orderDate) = ? " +
+                          "GROUP BY CAST(o.orderDate AS DATE) " +
+                          "ORDER BY date DESC";
+                    ps = conn.prepareStatement(sql);
+                    ps.setString(1, monthInput.substring(0, 4)); // Year
+                    ps.setString(2, monthInput.substring(5, 7)); // Month
+                    break;
+
+                case "yearly":
+                    String year = request.getParameter("year");
+                    if (year == null || year.isEmpty()) {
+                        request.setAttribute("reportType", type);
+                        request.setAttribute("reportData", null);
+                        request.getRequestDispatcher("/html/STAFF/report/report.jsp").forward(request, response);
+                        return;
+                    }
+                    
+                    sql = "SELECT MONTH(o.orderDate) AS monthNum, " +
+                          "COUNT(DISTINCT o.orderID) AS totalOrders, " +
+                          "SUM(i.quantity) AS totalItems, " +
+                          "SUM(i.price * i.quantity) AS monthlyTotal " +
+                          "FROM Orders o " +
+                          "JOIN OrderItem i ON o.orderID = i.orderID " +
+                          "WHERE YEAR(o.orderDate) = ? " +
+                          "GROUP BY MONTH(o.orderDate) " +
+                          "ORDER BY monthNum DESC";
+                    ps = conn.prepareStatement(sql);
+                    ps.setString(1, year);
                     break;
 
                 default:
+                    request.setAttribute("reportType", type);
                     request.setAttribute("reportData", null);
                     request.getRequestDispatcher("/html/STAFF/report/report.jsp").forward(request, response);
                     return;
@@ -105,12 +156,15 @@ public class ReportServlet extends HttpServlet {
                 reportData.add(row);
             }
 
+            // Always set reportType and reportData, even if empty
             request.setAttribute("reportType", type);
-            request.setAttribute("reportData", reportData);
+            request.setAttribute("reportData", reportData.isEmpty() ? null : reportData);
             request.getRequestDispatcher("/html/STAFF/report/report.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect(request.getContextPath() + "/html/ERROR/500error.jsp");
-        }
+            request.setAttribute("reportType", type);
+            request.setAttribute("reportData", null);
+            request.getRequestDispatcher("/html/STAFF/report/report.jsp").forward(request, response);
+        }       
     }
 }
