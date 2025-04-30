@@ -48,7 +48,7 @@ public class ReportServlet extends HttpServlet {
                     break;
 
                 case "monthly":
-                if (selectedMonth == null || selectedMonth.isEmpty()) {
+                if (selectedMonth == null || selectedMonth.isEmpty() || selectedYear == null || selectedYear.isEmpty()) {
                     request.setAttribute("reportType", type);
                     request.setAttribute("reportData", null);
                     request.getRequestDispatcher("/html/STAFF/report/report.jsp").forward(request, response);
@@ -56,16 +56,18 @@ public class ReportServlet extends HttpServlet {
                 }
 
                 sql = "SELECT MONTHNAME(o.orderDate) AS `Month Name`, " +
-                        "YEAR(o.orderDate) AS `Year`, " +
-                        "SUM(i.price * i.quantity) AS `Monthly Total` " +
-                        "FROM Orders o " +
-                        "JOIN OrderItem i ON o.orderID = i.orderID " +
-                        "WHERE MONTH(o.orderDate) = ? " +
-                        "GROUP BY MONTHNAME(o.orderDate), YEAR(o.orderDate) " +
-                        "ORDER BY YEAR(o.orderDate) DESC";
+                      "MONTH(o.orderDate) AS `Month`, " +
+                      "YEAR(o.orderDate) AS `Year`, " +
+                      "SUM(i.price * i.quantity) AS `Monthly Total` " +
+                      "FROM Orders o " +
+                      "JOIN OrderItem i ON o.orderID = i.orderID " +
+                      "WHERE MONTH(o.orderDate) = ? AND YEAR(o.orderDate) = ? " +
+                      "GROUP BY `Month Name`, `Month`, `Year` " +
+                      "ORDER BY `Year` DESC, `Month` DESC";
 
                 ps = conn.prepareStatement(sql);
                 ps.setInt(1, Integer.parseInt(selectedMonth));
+                ps.setInt(2, Integer.parseInt(selectedYear));
                 break;
 
 
