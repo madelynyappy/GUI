@@ -61,4 +61,25 @@ public class ProductDAO {
         
         return product;
     }
+    
+    //promotion 
+   public List<Product> getDiscountedProducts() throws SQLException {
+    List<Product> list = new ArrayList<>();
+    String sql = "SELECT * FROM Product WHERE discount > 0";
+    PreparedStatement ps = connection.prepareStatement(sql); // <== fixed
+    ResultSet rs = ps.executeQuery();
+    while (rs.next()) {
+        Product p = new Product();
+        p.setProductID(rs.getString("productID"));
+        p.setProductName(rs.getString("productName"));
+        p.setProductDescription(rs.getString("productDescription"));
+        p.setProductPrice(rs.getDouble("productPrice"));
+        p.setCategoryID(rs.getString("categoryID"));
+        p.setDiscount(rs.getInt("discount"));
+        list.add(p);
+    }
+    return list;
+}
+
+
 }

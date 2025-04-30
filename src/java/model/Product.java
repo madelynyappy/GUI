@@ -53,4 +53,16 @@ public class Product {
     public void setCategoryID(String categoryID) {
         this.categoryID = categoryID;
     }
+    
+    //promotion 
+    private int discount;
+
+public int getDiscount() {
+    return discount;
+}
+
+public void setDiscount(int discount) {
+    this.discount = discount;
+}
+
 }
