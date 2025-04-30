@@ -23,7 +23,8 @@ public class OrderStatusServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Map<String, Object>> orders = new ArrayList<>();
+
+        Map<String, Map<String, Object>> orders = new LinkedHashMap<>();
 
         try (Connection conn = DBConnector.getConnection()) {
             String sql = "SELECT o.orderID, o.orderDate, o.paymentMethod, o.totalAmount, o.discount, o.status, " +
@@ -35,22 +36,30 @@ public class OrderStatusServlet extends HttpServlet {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Map<String, Object> row = new HashMap<>();
-                row.put("orderID", rs.getString("orderID"));
-                row.put("orderDate", rs.getTimestamp("orderDate"));
-                row.put("paymentMethod", rs.getString("paymentMethod"));
-                row.put("totalAmount", rs.getDouble("totalAmount"));
-                row.put("discount", rs.getDouble("discount"));
-                row.put("status", rs.getString("status"));
-                row.put("productID", rs.getString("productID"));
-                row.put("quantity", rs.getInt("quantity"));
-                row.put("price", rs.getDouble("price"));
-                orders.add(row);
+                String orderID = rs.getString("orderID");
+
+                Map<String, Object> orderData = orders.getOrDefault(orderID, new HashMap<>());
+
+                orderData.put("orderDate", rs.getTimestamp("orderDate"));
+                orderData.put("paymentMethod", rs.getString("paymentMethod"));
+                orderData.put("totalAmount", rs.getDouble("totalAmount"));
+                orderData.put("discount", rs.getDouble("discount"));
+                orderData.put("orderStatus", rs.getString("status")); // match JSP field
+
+                List<Map<String, Object>> items = (List<Map<String, Object>>) orderData.getOrDefault("items", new ArrayList<>());
+
+                Map<String, Object> item = new HashMap<>();
+                item.put("productID", rs.getString("productID"));
+                item.put("quantity", rs.getInt("quantity"));
+                item.put("price", rs.getDouble("price"));
+                items.add(item);
+
+                orderData.put("items", items);
+                orders.put(orderID, orderData);
             }
 
             request.setAttribute("orders", orders);
-           RequestDispatcher rd = request.getRequestDispatcher("/html/STAFF/product/orderStatus.jsp");
-
+            RequestDispatcher rd = request.getRequestDispatcher("/html/STAFF/product/orderStatus.jsp");
             rd.forward(request, response);
 
         } catch (Exception e) {
@@ -62,8 +71,9 @@ public class OrderStatusServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String orderID = request.getParameter("orderID");
-        String status = request.getParameter("status");
+        String status = request.getParameter("orderStatus");
 
         try (Connection conn = DBConnector.getConnection()) {
             String sql = "UPDATE Orders SET status = ? WHERE orderID = ?";
@@ -73,9 +83,11 @@ public class OrderStatusServlet extends HttpServlet {
             ps.executeUpdate();
 
             response.sendRedirect(request.getContextPath() + "/OrderStatusServlet");
+
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect(request.getContextPath() + "/html/ERROR/500error.jsp");
+            
         }
     }
 }

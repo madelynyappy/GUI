@@ -43,6 +43,11 @@
             margin-top: 10px;
             font-weight: bold;
         }
+        
+        .status-packaging { color: #30588C; }
+.status-shipping { color: #6093BF; }
+.status-delivered { color: #254559; }
+
     </style>
 </head>
 <body>
@@ -83,6 +88,17 @@
                     <td><%= String.format("%.2f", subtotal) %></td>
                 </tr>
             <% } %>
+            
+            <!-- check order status  -->
+             <c:forEach var="order" items="${orderList}">
+        <tr>
+            <td>${order.orderID}</td>
+            <td>${order.date}</td>
+            <td>RM ${order.total}</td>
+            <td><span class="status">${order.status}</span></td>
+        </tr>
+    </c:forEach>
+            
         </table>
     </div>
 <% } %>

@@ -67,27 +67,38 @@
         </tr>
     </thead>
     <tbody>
-        <% for (Map.Entry<String, Map<String, Object>> entry : orders.entrySet()) {
+      <%
+    Map<String, Map<String, Object>> orders = (Map<String, Map<String, Object>>) request.getAttribute("orders");
+    if (orders != null && !orders.isEmpty()) {
+        for (Map.Entry<String, Map<String, Object>> entry : orders.entrySet()) {
             String orderID = entry.getKey();
             Map<String, Object> order = entry.getValue();
-        %>
-        <tr>
-            <form action="<%=request.getContextPath()%>/OrderStatusServlet" method="post">
-                <input type="hidden" name="orderID" value="<%= orderID %>">
-                <td><%= orderID %></td>
-                <td><%= order.get("orderDate") %></td>
-                <td><%= order.get("paymentMethod") %></td>
-                <td>
-                    <select name="orderStatus">
-                        <option value="Packaging" <%= "Packaging".equals(order.get("orderStatus")) ? "selected" : "" %>>Packaging</option>
-                        <option value="Shipping" <%= "Shipping".equals(order.get("orderStatus")) ? "selected" : "" %>>Shipping</option>
-                        <option value="Delivered" <%= "Delivered".equals(order.get("orderStatus")) ? "selected" : "" %>>Delivered</option>
-                    </select>
-                </td>
-                <td><button class="submit-btn" type="submit">Update</button></td>
-            </form>
-        </tr>
-        <% } %>
+%>
+            <tr>
+                <form action="<%=request.getContextPath()%>/OrderStatusServlet" method="post">
+                    <input type="hidden" name="orderID" value="<%= orderID %>">
+                    <td><%= orderID %></td>
+                    <td><%= order.get("orderDate") %></td>
+                    <td><%= order.get("paymentMethod") %></td>
+                    <td>
+                        <select name="orderStatus">
+                            <option value="Packaging" <%= "Packaging".equals(order.get("orderStatus")) ? "selected" : "" %>>Packaging</option>
+                            <option value="Shipping" <%= "Shipping".equals(order.get("orderStatus")) ? "selected" : "" %>>Shipping</option>
+                            <option value="Delivered" <%= "Delivered".equals(order.get("orderStatus")) ? "selected" : "" %>>Delivered</option>
+                        </select>
+                    </td>
+                    <td><button class="submit-btn" type="submit">Update</button></td>
+                </form>
+            </tr>
+<%
+        }
+    } else {
+%>
+        <tr><td colspan="5">No orders found.</td></tr>
+<%
+    }
+%>
+
     </tbody>
 </table>
 
