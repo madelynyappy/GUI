@@ -4,6 +4,7 @@
     Author     : Madelyn Yap
 --%>
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, model.*, java.sql.*" %>
 <%
@@ -22,32 +23,57 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Promotion Discount Editor</title>
+    <title>FitHub | Manage Promotions</title>
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/fithub.png">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background-color: #FDFDFD;
         }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #30588C;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            background-color: #C4C3D0;
         }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
+
         th {
-            background-color: #f2f2f2;
+            background-color: #30588C;
+            color: white;
+            padding: 10px;
         }
+
+        td {
+            background-color: #FDFDFD;
+            padding: 10px;
+            border-bottom: 1px solid #6093BF;
+            text-align: center;
+        }
+
         .enable-checkbox {
             width: 20px;
             height: 20px;
         }
+
         .discount-select {
             padding: 5px;
-            width: 100px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        tr:hover {
+            background-color: #E0E7F1;
         }
     </style>
     <script>
@@ -55,13 +81,13 @@
             const formData = new FormData();
             formData.append('action', action);
             formData.append('productID', productID);
-            
+
             if (action === 'updateDiscount') {
                 formData.append('discount', value);
             } else if (action === 'togglePromotion') {
                 formData.append('enabled', value);
             }
-            
+
             fetch('<%=request.getContextPath()%>/UpdatePromotionServlet', {
                 method: 'POST',
                 body: formData
@@ -79,41 +105,48 @@
     </script>
 </head>
 <body>
-    <h1>Manage Promotions</h1>
-    <table>
-        <tr>
-            <th>Enable</th>
-            <th>Product ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Original Price (MYR)</th>
-            <th>Category</th>
-            <th>Discount (%)</th>
-        </tr>
-        <% for (Product p : productList) { %>
+
+    <%-- Sidebar for staff --%>
+    <jsp:include page="../home/staffSidebar.jsp" />
+
+    <div class="content">
+        <h1>Manage Promotions</h1>
+        <table>
             <tr>
-                <td>
-                    <input type="checkbox" 
-                           class="enable-checkbox" 
-                           onchange="updatePromotion('<%= p.getProductID() %>', 'togglePromotion', this.checked)"
-                           <%= p.isPromotionEnabled() ? "checked" : "" %>>
-                </td>
-                <td><%= p.getProductID() %></td>
-                <td><%= p.getProductName() %></td>
-                <td><%= p.getProductDescription() %></td>
-                <td><%= String.format("%.2f", p.getProductPrice()) %></td>
-                <td><%= p.getCategoryID() %></td>
-                <td>
-                    <select class="discount-select" 
-                            onchange="updatePromotion('<%= p.getProductID() %>', 'updateDiscount', this.value)">
-                        <option value="0" <%= p.getDiscount() == 0 ? "selected" : "" %>>None</option>
-                        <% for (int i = 10; i <= 90; i += 10) { %>
-                            <option value="<%= i %>" <%= p.getDiscount() == i ? "selected" : "" %>><%= i %>%</option>
-                        <% } %>
-                    </select>
-                </td>
+                <th>Enable</th>
+                <th>Product ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Original Price (MYR)</th>
+                <th>Category</th>
+                <th>Discount (%)</th>
             </tr>
-        <% } %>
-    </table>
+            <% for (Product p : productList) { %>
+                <tr>
+                    <td>
+                        <input type="checkbox" 
+                               class="enable-checkbox" 
+                               onchange="updatePromotion('<%= p.getProductID() %>', 'togglePromotion', this.checked)"
+                               <%= p.isPromotionEnabled() ? "checked" : "" %>>
+                    </td>
+                    <td><%= p.getProductID() %></td>
+                    <td><%= p.getProductName() %></td>
+                    <td><%= p.getProductDescription() %></td>
+                    <td><%= String.format("%.2f", p.getProductPrice()) %></td>
+                    <td><%= p.getCategoryID() %></td>
+                    <td>
+                        <select class="discount-select" 
+                                onchange="updatePromotion('<%= p.getProductID() %>', 'updateDiscount', this.value)">
+                            <option value="0" <%= p.getDiscount() == 0 ? "selected" : "" %>>None</option>
+                            <% for (int i = 10; i <= 90; i += 10) { %>
+                                <option value="<%= i %>" <%= p.getDiscount() == i ? "selected" : "" %>><%= i %>%</option>
+                            <% } %>
+                        </select>
+                    </td>
+                </tr>
+            <% } %>
+        </table>
+    </div>
+
 </body>
 </html>

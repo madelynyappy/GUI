@@ -115,4 +115,29 @@ public class ProductDAO {
         }
         return productImageList;
     }
+
+    public List<Product> getProductsByCategory(String categoryID) throws SQLException {
+        List<Product> productList = new ArrayList<>();
+        String sql = "SELECT p.*, pd.discount, pd.promotionEnabled " +
+                    "FROM Product p " +
+                    "LEFT JOIN productDiscount pd ON p.productID = pd.productID " +
+                    "WHERE p.CategoryID = ?";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setString(1, categoryID);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Product p = new Product();
+            p.setProductID(rs.getString("ProductID"));
+            p.setProductName(rs.getString("ProductName"));
+            p.setProductDescription(rs.getString("ProductDescription"));
+            p.setProductPrice(rs.getDouble("ProductPrice"));
+            p.setCategoryID(rs.getString("CategoryID"));
+            p.setDiscount(rs.getInt("discount"));
+            p.setPromotionEnabled(rs.getBoolean("promotionEnabled"));
+            p.setProductImageList(getProductImage(rs.getString("ProductID")));
+            productList.add(p);
+        }
+        return productList;
+    }
 }
