@@ -63,12 +63,16 @@
             
             fetch('<%=request.getContextPath()%>/UpdatePromotionServlet', {
                 method: 'POST',
-                body: formData
+                body: formData,
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             }).then(response => {
                 if (!response.ok) {
+                    console.error('Network response was not ok',response);
                     throw new Error('Network response was not ok');
+                    
                 }
-                return response.text();
             }).catch(error => {
                 console.error('Error:', error);
                 alert('Error updating promotion. Please try again.');

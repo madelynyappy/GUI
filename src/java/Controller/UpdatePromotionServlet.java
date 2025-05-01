@@ -22,12 +22,17 @@ public class UpdatePromotionServlet extends HttpServlet {
         String action = request.getParameter("action");
         String productID = request.getParameter("productID");
         
+        System.out.println("Received action: " + action);
+        System.out.println("Product ID: " + productID);
+        
         try (Connection conn = DBConnector.getConnection()) {
             if ("updateDiscount".equals(action)) {
                 // Update promotion value
                 String discountStr = request.getParameter("discount");
                 int discount = Integer.parseInt(discountStr);
                 
+                System.out.println("Updating discount to: " + discount);
+                
                 // Check if record exists
                 String checkSQL = "SELECT COUNT(*) FROM productDiscount WHERE productID = ?";
                 PreparedStatement checkPs = conn.prepareStatement(checkSQL);
@@ -36,23 +41,30 @@ public class UpdatePromotionServlet extends HttpServlet {
                 rs.next();
                 boolean exists = rs.getInt(1) > 0;
                 
+                System.out.println("Record exists: " + exists);
+                
                 String updateSQL;
                 if (exists) {
                     updateSQL = "UPDATE productDiscount SET discount = ? WHERE productID = ?";
+                    System.out.println("Executing UPDATE");
                 } else {
                     updateSQL = "INSERT INTO productDiscount (productID, discount) VALUES (?, ?)";
+                    System.out.println("Executing INSERT");
                 }
                 
                 PreparedStatement ps = conn.prepareStatement(updateSQL);
                 ps.setInt(1, discount);
                 ps.setString(2, productID);
-                ps.executeUpdate();
+                int rowsAffected = ps.executeUpdate();
+                System.out.println("Rows affected: " + rowsAffected);
                 
             } else if ("togglePromotion".equals(action)) {
                 // Toggle promotion enabled status
                 String enabledStr = request.getParameter("enabled");
                 boolean enabled = "true".equals(enabledStr);
                 
+                System.out.println("Updating promotion enabled to: " + enabled);
+                
                 // Check if record exists
                 String checkSQL = "SELECT COUNT(*) FROM productDiscount WHERE productID = ?";
                 PreparedStatement checkPs = conn.prepareStatement(checkSQL);
@@ -61,22 +73,28 @@ public class UpdatePromotionServlet extends HttpServlet {
                 rs.next();
                 boolean exists = rs.getInt(1) > 0;
                 
+                System.out.println("Record exists: " + exists);
+                
                 String updateSQL;
                 if (exists) {
                     updateSQL = "UPDATE productDiscount SET promotionEnabled = ? WHERE productID = ?";
+                    System.out.println("Executing UPDATE");
                 } else {
                     updateSQL = "INSERT INTO productDiscount (productID, promotionEnabled) VALUES (?, ?)";
+                    System.out.println("Executing INSERT");
                 }
                 
                 PreparedStatement ps = conn.prepareStatement(updateSQL);
                 ps.setBoolean(1, enabled);
                 ps.setString(2, productID);
-                ps.executeUpdate();
+                int rowsAffected = ps.executeUpdate();
+                System.out.println("Rows affected: " + rowsAffected);
             }
             
-            response.sendRedirect(request.getContextPath() + "/html/STAFF/product/promotionList.jsp");
+            response.sendRedirect(request.getContextPath() + "/html/STAFF/product/promotionModify.jsp");
             
         } catch (Exception e) {
+            System.err.println("Error in UpdatePromotionServlet: ");
             e.printStackTrace();
             response.sendRedirect(request.getContextPath() + "/html/ERROR/500error.jsp");
         }
