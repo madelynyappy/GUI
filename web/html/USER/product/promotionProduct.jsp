@@ -24,13 +24,14 @@
     <title>Promotions | FitHub</title>
 </head>
 <body>
-<h1>🔥 Special Promotions 🔥</h1>
+<h1> Special Promotions </h1>
 <table border="1" cellpadding="8">
     <tr>
         <th>Product</th>
         <th>Original Price (MYR)</th>
         <th>Discount (%)</th>
         <th>Now Only (MYR)</th>
+        <th>Action</th>
     </tr>
     <% for (Product p : promoList) {
         double discount = p.getDiscount();
@@ -42,9 +43,13 @@
         <td><%= String.format("%.2f", price) %></td>
         <td><%= (int)discount %>%</td>
         <td><b><%= String.format("%.2f", finalPrice) %></b></td>
+        <td>
+            <a href="<%=request.getContextPath()%>/AddToCartServlet?productID=<%=p.getProductID()%>">Add to Cart</a>
+        </td>
     </tr>
     <% } %>
 </table>
+
 <a href="<%=request.getContextPath()%>/html/USER/home/home.jsp">⬅ Back to Home</a>
 </body>
 </html>

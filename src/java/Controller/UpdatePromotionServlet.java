@@ -35,7 +35,8 @@ public class UpdatePromotionServlet extends HttpServlet {
                 }
             }
 
-            response.sendRedirect(request.getContextPath() + "/html/STAFF/product/promotionProduct.jsp");
+            response.sendRedirect(request.getContextPath() + "/html/STAFF/product/promotionList.jsp");
+
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect(request.getContextPath() + "/html/ERROR/500error.jsp");

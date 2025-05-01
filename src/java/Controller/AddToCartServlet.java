@@ -17,7 +17,6 @@ import java.util.*;
 import model.*;
 import java.sql.Connection;
 
-
 @WebServlet("/AddToCartServlet")
 public class AddToCartServlet extends HttpServlet {
 
@@ -32,6 +31,15 @@ public class AddToCartServlet extends HttpServlet {
             ProductDAO productDAO = new ProductDAO(conn);
             Product product = productDAO.getProductByID(productID);
             conn.close();
+
+            // Apply discount before storing in cart
+            double originalPrice = product.getProductPrice();
+            int discount = product.getDiscount();
+
+            if (discount > 0) {
+                double finalPrice = originalPrice - (originalPrice * discount / 100);
+                product.setProductPrice(finalPrice); // overwrite with discounted price
+            }
 
             HttpSession session = request.getSession();
             List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
@@ -54,9 +62,7 @@ public class AddToCartServlet extends HttpServlet {
             }
 
             session.setAttribute("cart", cart);
-
-            // Redirect back to user product page (shop page)
-            response.sendRedirect(request.getContextPath() + "/html/USER/product/productCart.jsp");
+            response.sendRedirect(request.getContextPath() + "/html/USER/product/cart.jsp");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,4 +70,3 @@ public class AddToCartServlet extends HttpServlet {
         }
     }
 }
-
