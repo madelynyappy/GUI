@@ -15,16 +15,17 @@
         <footer class="footer">
 
 
-            <a href="../../USER/home/home.jsp" style="text-decoration: none; color: inherit;">
-                <div class="footer-title">FITHUB - 1ST Choice for Sports and Fitness Equipment</div>
-            </a>
+            <div class="footer-title-container">
+                <a href="../../USER/home/home.jsp" style="text-decoration: none; color: inherit;">
+                    <div class="footer-title">FITHUB - 1ST Choice for Sports and Fitness Equipment</div>
+                </a>
+            </div>
 
 
 
             <div class="footer-container">
 
                 <div class="footer-column">
-                    <%= application.getInitParameter("companyName") %>
                     <h3>Company Info</h3>
                     <ul>
                         <li><a href="../../USER/home/aboutUs.jsp">About Us</a></li>
@@ -46,16 +47,9 @@
                 </div>
 
                 <div class="footer-column">
-                    <h3>Features</h3>
-                    <ul>
-                        <li><a href="../../USER/promotion/promotion.jsp">Promotion</a></li>
-                        <li><a href="../../USER/blog.jsp">Blog</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-column">
                     <h3>Get In Touch</h3>
                     <ul>
+                        <li><%= application.getInitParameter("companyName") %></li>
                         <li>Phone number (+60)123456789</li>
                        
                         <li>Lot S-29 & S-30, 2nd Floor,</li>

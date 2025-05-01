@@ -22,8 +22,9 @@
                 Your browser does not support the video tag.
             </video>
             <div class="video-overlay">
-                <h1>About FitHub</h1>
+                <h1>Cardio</h1>
                 <p>Your #1 destination for fitness, strength & health gear</p>
+                <a href="http://localhost:48944/FITHUB2/html/USER/product/product.jsp" class="btn-shop">Shop Now</a>
             </div>
         </section>
         

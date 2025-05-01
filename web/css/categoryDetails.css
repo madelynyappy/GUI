@@ -82,3 +82,15 @@ body {
   gap: 67px;
   margin-top: 40px;
 }
+
+.cta-button {
+        margin-top: 20px;
+        display: inline-block;
+        padding: 12px 25px;
+        background-color: #30588C;
+        color: white;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+    }

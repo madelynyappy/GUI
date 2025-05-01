@@ -19,7 +19,6 @@
 
                     <div class="nav-links">
                         <a href="${pageContext.request.contextPath}/html/USER/home/home.jsp">HOME</a>
-
                         <div class="nav-item">
                             <a href="${pageContext.request.contextPath}/html/USER/product/product.jsp" class="dropbtn">PRODUCT</a>
                             <div class="dropdown-content">
@@ -30,16 +29,13 @@
                                 <a href="${pageContext.request.contextPath}/html/USER/product/randw.jsp">Recovery & Wellness</a>
                             </div>
                         </div>
-
-                        <a href="${pageContext.request.contextPath}/html/USER/promotion/promotion.jsp">PROMOTION</a>
-                        <a href="${pageContext.request.contextPath}/html/USER/blog/blog.jsp">BLOG</a>
                     </div>
 
                 </div>
 
                 <div class="right-group">
                     <form class="search-form" action="${pageContext.request.contextPath}/html/USER/home/search.jsp" method="get">
-                        <input type="text" name="query" placeholder="Search Product...">
+                        <input type="text" name="keyword" placeholder="Search Product...">
                         <button type="submit"><i class="bi bi-search"></i></button>
                     </form>
 
