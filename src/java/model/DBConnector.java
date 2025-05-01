@@ -19,9 +19,9 @@ public class DBConnector {
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver"); 
             return DriverManager.getConnection(
-                "jdbc:derby://localhost:1527/fithubdb", // Your database URL
-                "app",   // Default username (check your NetBeans database username)
-                "app"    // Default password (check your NetBeans database password)
+                "jdbc:derby://localhost:1527/fithubdb",
+                "app",  
+                "app"   
             );
         } catch (ClassNotFoundException e) {
             throw new SQLException("Derby Driver not found", e);
