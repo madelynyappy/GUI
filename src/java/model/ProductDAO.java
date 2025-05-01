@@ -22,7 +22,9 @@ public class ProductDAO {
 
     public List<Product> getAllProducts() throws SQLException {
         List<Product> productList = new ArrayList<>();
-        String sql = "SELECT * FROM Product";
+        String sql = "SELECT p.*, pd.discount, pd.promotionEnabled " +
+                    "FROM Product p " +
+                    "LEFT JOIN productDiscount pd ON p.productID = pd.productID";
         PreparedStatement stmt = connection.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
 
@@ -33,6 +35,8 @@ public class ProductDAO {
             p.setProductDescription(rs.getString("ProductDescription"));
             p.setProductPrice(rs.getDouble("ProductPrice"));
             p.setCategoryID(rs.getString("CategoryID"));
+            p.setDiscount(rs.getInt("discount"));
+            p.setPromotionEnabled(rs.getBoolean("promotionEnabled"));
             p.setProductImageList(getProductImage(rs.getString("ProductID")));
             productList.add(p);
         }
@@ -43,7 +47,10 @@ public class ProductDAO {
     public Product getProductByID(String productID) throws SQLException {
         Product product = null;
         
-        String sql = "SELECT * FROM Product WHERE ProductID = ?";
+        String sql = "SELECT p.*, pd.discount, pd.promotionEnabled " +
+                    "FROM Product p " +
+                    "LEFT JOIN productDiscount pd ON p.productID = pd.productID " +
+                    "WHERE p.ProductID = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, productID);
         ResultSet rs = ps.executeQuery();
@@ -55,6 +62,8 @@ public class ProductDAO {
             product.setProductDescription(rs.getString("ProductDescription"));
             product.setProductPrice(rs.getDouble("ProductPrice"));
             product.setCategoryID(rs.getString("CategoryID"));
+            product.setDiscount(rs.getInt("discount"));
+            product.setPromotionEnabled(rs.getBoolean("promotionEnabled"));
             product.setProductImageList(getProductImage(productID));
         }
         
@@ -67,8 +76,11 @@ public class ProductDAO {
      //promotion 
    public List<Product> getDiscountedProducts() throws SQLException {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM Product WHERE discount > 0";
-        PreparedStatement ps = connection.prepareStatement(sql); // <== fixed
+        String sql = "SELECT p.*, pd.discount, pd.promotionEnabled " +
+                    "FROM Product p " +
+                    "JOIN productDiscount pd ON p.productID = pd.productID " +
+                    "WHERE pd.discount > 0 AND pd.promotionEnabled = true";
+        PreparedStatement ps = connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             Product p = new Product();
@@ -77,6 +89,8 @@ public class ProductDAO {
             p.setProductDescription(rs.getString("productDescription"));
             p.setProductPrice(rs.getDouble("productPrice"));
             p.setCategoryID(rs.getString("categoryID"));
+            p.setDiscount(rs.getInt("discount"));
+            p.setPromotionEnabled(rs.getBoolean("promotionEnabled"));
             list.add(p);
         }
         return list;

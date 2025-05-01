@@ -2,6 +2,7 @@
     Document   : staffList
     Created on : May 1, 2025, 3:22:32 PM
     Author     : Madelyn Yap
+status removed for staff 
 --%>
 
 <%@ page import="java.util.*, model.Staff" %>
@@ -45,7 +46,9 @@
     <table>
         <tr>
             <th>ID</th><th>Name</th><th>Contact</th><th>Email</th>
-            <th>Address</th><th>Username</th><th>Role</th><th>Status</th>
+            <th>Address</th><th>Username</th><th>Role</th><%-- <th>Status</th> --%><th>Action</th>
+
+
         </tr>
         <%
             List<Staff> list = (List<Staff>) request.getAttribute("staffList");
@@ -60,7 +63,17 @@
             <td><%= s.getAddress() %></td>
             <td><%= s.getUsername() %></td>
             <td><%= s.getRoleTitle() %></td>
-            <td><%= s.getStatus() %></td>
+            
+           <%-- <td><%= s.getStatus() %></td> --%>
+           <td>
+    <form action="${pageContext.request.contextPath}/DeleteStaffServlet" method="post" onsubmit="return confirm('Are you sure you want to delete this staff?');">
+        <input type="hidden" name="staffID" value="<%= s.getStaffID() %>">
+        <button type="submit">Delete</button>
+    </form>
+</td>
+
+
+
         </tr>
         <%
                 }

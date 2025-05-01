@@ -19,6 +19,7 @@ public class Product {
     private String categoryID;
     private List<ProductImage> productImageList;
     private int discount;
+    private boolean promotionEnabled;
 
     public Product() {}
 
@@ -73,4 +74,10 @@ public class Product {
         this.discount = discount;
     }
     
+    public boolean isPromotionEnabled() {
+        return promotionEnabled;
+    }
+    public void setPromotionEnabled(boolean promotionEnabled) {
+        this.promotionEnabled = promotionEnabled;
+    }
 }

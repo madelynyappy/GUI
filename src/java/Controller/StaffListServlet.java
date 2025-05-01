@@ -50,8 +50,7 @@ public class StaffListServlet extends HttpServlet {
         }
 
         request.setAttribute("staffList", staffList);
-        RequestDispatcher rd = request.getRequestDispatcher("/STAFF/staff/staffList.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/html/STAFF/staff/staffList.jsp");
         rd.forward(request, response);
     }
 }
-

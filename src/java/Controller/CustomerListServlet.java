@@ -49,8 +49,7 @@ public class CustomerListServlet extends HttpServlet {
         }
 
         request.setAttribute("customerList", customers);
-        RequestDispatcher rd = request.getRequestDispatcher("/STAFF/customer/customerList.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/html/STAFF/customer/customerList.jsp");
         rd.forward(request, response);
     }
 }
-
