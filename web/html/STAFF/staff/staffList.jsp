@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Staff List</title>
+    <title>FitHub | Staff List</title>
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/fithub.png">
     <style>
         body {
@@ -44,12 +44,13 @@
     <h2>Staff List</h2>
     <table>
         <tr>
-            <th>ID</th><th>Name</th><th>Contact</th><th>Email</th><th>Address</th>
-            <th>Username</th><th>Role</th><th>Status</th>
+            <th>ID</th><th>Name</th><th>Contact</th><th>Email</th>
+            <th>Address</th><th>Username</th><th>Role</th><th>Status</th>
         </tr>
         <%
             List<Staff> list = (List<Staff>) request.getAttribute("staffList");
-            for(Staff s : list){
+            if (list != null && !list.isEmpty()) {
+                for(Staff s : list){
         %>
         <tr>
             <td><%= s.getStaffID() %></td>
@@ -61,8 +62,14 @@
             <td><%= s.getRoleTitle() %></td>
             <td><%= s.getStatus() %></td>
         </tr>
-        <% } %>
+        <%
+                }
+            } else {
+        %>
+        <tr><td colspan="8" style="text-align:center;">No staff data available.</td></tr>
+        <%
+            }
+        %>
     </table>
 </body>
 </html>
-

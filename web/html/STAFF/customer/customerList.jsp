@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Customer List</title>
+    <title>FitHub | Customer List</title>
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/fithub.png">
     <style>
         body {
@@ -44,12 +44,13 @@
     <h2>Customer List</h2>
     <table>
         <tr>
-            <th>ID</th><th>Name</th><th>Contact</th><th>Email</th><th>Billing Address</th>
-            <th>Shipping Address</th><th>Username</th>
+            <th>ID</th><th>Name</th><th>Contact</th><th>Email</th>
+            <th>Billing Address</th><th>Shipping Address</th><th>Username</th>
         </tr>
         <%
             List<Customer> list = (List<Customer>) request.getAttribute("customerList");
-            for(Customer c : list){
+            if (list != null && !list.isEmpty()) {
+                for(Customer c : list){
         %>
         <tr>
             <td><%= c.getCustomerID() %></td>
@@ -60,7 +61,14 @@
             <td><%= c.getShippingAddress() %></td>
             <td><%= c.getUsername() %></td>
         </tr>
-        <% } %>
+        <%
+                }
+            } else {
+        %>
+        <tr><td colspan="7" style="text-align:center;">No customer data available.</td></tr>
+        <%
+            }
+        %>
     </table>
 </body>
 </html>
