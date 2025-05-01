@@ -8,6 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, model.*" %>
 <%@ page import="java.sql.*" %>
+
 <%
     List<Product> productList = new ArrayList<>();
     try {
@@ -24,17 +25,19 @@
 <html>
 <head>
     <meta charset="UTF-8">
+     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/productList.css">
     <title>Product List Test</title>
 </head>
 <body>
-    <h1>Product List (Test)</h1>
+    <h1>Product List</h1>
     <table border="1" cellpadding="8">
         <tr>
-            <th>ProductID</th>
-            <th>ProductName</th>
+            <th>Product ID</th>
+             <th>Product Image</th>
+            <th>Product Name</th>
             <th>Description</th>
             <th>Price (MYR)</th>
-            <th>CategoryID</th>
+            <th>Category ID</th>
              <th>Action</th>
         </tr>
         <%
@@ -43,10 +46,8 @@
         <tr>
             <td><%= p.getProductID() %></td>
             <td>
-                <% if (p.getProductImageList() == null) { %>
-                    <img src="505.png" alt="Product image list is null" style="width:100px; height:auto;">
-                <% } else if (p.getProductImageList().isEmpty()) { %>
-                    <img src="505.png" alt="Product image list is empty" style="width:100px; height:auto;">
+                <% if (p.getProductImageList() == null || p.getProductImageList().isEmpty()) { %>
+                    <img src="<%=request.getContextPath()%>/images/noImage.png" alt="No product image available" style="width:100px; height:auto;">
                 <% } else { %>
                     <% for (ProductImage pi : p.getProductImageList()) { %>
                         <img src="<%=request.getContextPath()%>/<%= pi.getPath() %>" alt="<%= pi.getDescription() %>" style="width:100px; height:auto;">
