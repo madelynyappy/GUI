@@ -8,65 +8,92 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 */
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f7fb;
-    color: #254559; /* Japanese Indigo */
-    margin: 20px;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #FDFDFD;
+    margin: 0;
+    padding: 40px;
 }
 
 h1 {
+    color: #30588C;
     text-align: center;
-    color: #30588C; /* B'dazzled Blue */
     margin-bottom: 30px;
 }
 
-.report-buttons {
-    text-align: center;
-    margin-bottom: 25px;
+/* Button Section */
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
 }
 
-.report-buttons a button {
-    background-color: #6093BF; /* Silver Lake Blue */
+.report-buttons button {
+    background-color: #30588C;
     color: white;
     border: none;
-    border-radius: 8px;
-    padding: 10px 20px;
-    margin: 5px;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: bold;
     cursor: pointer;
-    font-size: 14px;
     transition: background-color 0.3s ease;
+    min-width: 180px;
 }
 
-.report-buttons a button:hover {
-    background-color: #30588C; /* Darker on hover */
+.report-buttons button:hover,
+.submit-btn:hover {
+    background-color: #254559;
 }
 
+.submit-btn {
+    margin-top: 10px;
+    background-color: #6093BF;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Dropdown Inputs */
+.dropdown-inputs {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.dropdown-container {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+    margin-top: 10px;
+}
+
+/* Table Styling */
 table {
-    width: 80%;
-    margin: 20px auto;
+    width: 100%;
     border-collapse: collapse;
-    background-color: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 12px 15px;
-    text-align: center;
+    margin-top: 30px;
+    background-color: #C4C3D0;
 }
 
 th {
-    background-color: #254559; /* Japanese Indigo */
+    background-color: #30588C;
     color: white;
+    padding: 12px;
 }
 
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-.no-data {
+td {
+    background-color: #FDFDFD;
+    padding: 10px;
     text-align: center;
-    color: #888;
-    margin-top: 50px;
-    font-style: italic;
+    border-bottom: 1px solid #6093BF;
+}
+
+tr:hover td {
+    background-color: #E0E7F1;
 }

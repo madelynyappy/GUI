@@ -20,43 +20,42 @@
         <div class="container">
             <header>
                 <h1>Contact Us</h1>
-                <p>We'd love to hear from you. Please fill out the form below or use our contact information.</p><br>
             </header>
 
             <div class="content">
                 <!-- Contact Form Section -->
-                <section class="form-section">
-                    <div class="card" id="contact-form">
-                        <h2>Send Us a Message</h2>
-                        <form id="messageForm">
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" id="name" class="form-control" placeholder="Your name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" class="form-control" placeholder="Your email address" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="subject">Subject</label>
-                                <input type="text" id="subject" class="form-control" placeholder="Subject of your message" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="message">Message</label>
-                                <textarea id="message" class="form-control" placeholder="Your message" required></textarea>
-                            </div>
-                            <button type="submit" class="btn">Send Message</button>
-                        </form>
-                    </div>
-
-                    <!-- Success Message (Hidden by default) -->
-                    <div class="card success-message" id="success-message">
-                        <div class="success-icon">✓</div>
-                        <h3 class="success-title">Thank You!</h3>
-                        <p class="success-text">Your message has been sent successfully. We'll get back to you as soon as possible.</p>
-                        <button class="btn" id="send-another">Send Another Message</button>
-                    </div>
-                </section>
+                <!--  <section class="form-section">
+                     <div class="card" id="contact-form">
+                         <h2>Send Us a Message</h2>
+                         <form id="messageForm">
+                             <div class="form-group">
+                                 <label for="name">Name</label>
+                                 <input type="text" id="name" class="form-control" placeholder="Your name" required>
+                             </div>
+                             <div class="form-group">
+                                 <label for="email">Email</label>
+                                 <input type="email" id="email" class="form-control" placeholder="Your email address" required>
+                             </div>
+                             <div class="form-group">
+                                 <label for="subject">Subject</label>
+                                 <input type="text" id="subject" class="form-control" placeholder="Subject of your message" required>
+                             </div>
+                             <div class="form-group">
+                                 <label for="message">Message</label>
+                                 <textarea id="message" class="form-control" placeholder="Your message" required></textarea>
+                             </div>
+                             <button type="submit" class="btn">Send Message</button>
+                         </form>
+                     </div>
+ 
+                <!-- Success Message (Hidden by default) -->
+                <!--   <div class="card success-message" id="success-message">
+                       <div class="success-icon">✓</div>
+                       <h3 class="success-title">Thank You!</h3>
+                       <p class="success-text">Your message has been sent successfully. We'll get back to you as soon as possible.</p>
+                       <button class="btn" id="send-another">Send Another Message</button>
+                   </div>
+               </section> -->
 
                 <!-- Contact Info Section -->
                 <section class="info-section">
@@ -72,7 +71,13 @@
                             </div>
                             <div class="contact-details">
                                 <p class="contact-label">Address</p>
-                                <p class="contact-text">123 Business Avenue, Suite 100<br>San Francisco, CA 94107</p>
+                                <p class="contact-text">
+                                    Lot S-29 & S-30, 2nd Floor,<br>
+                                    Mid Valley Megamall, Lingkaran Syed Putra,<br>
+                                    Mid Valley City, 59200 Kuala Lumpur,<br>
+                                    Wilayah Persekutuan Kuala Lumpur
+                                </p>
+
                             </div>
                         </div>
 
@@ -150,93 +155,79 @@
                 </section>
             </div>
         </div>
-        
+
         <section class="location-section">
-    <div class="card full-width-map">
-        <h2>Our Location</h2>
-        <div class="map-container">
-            <div class="map-placeholder"></div>
-            <div class="map-pin">
-                <div class="map-pin-inner"></div>
+            <div class="card full-width-map">
+                <h2>Our Location</h2>
+                <div class="map-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.820137820226!2d101.676689!3d3.1175271!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc49c9d4175dfd%3A0x5a162e84589c693f!2sMid%20Valley%20Megamall!5e0!3m2!1sen!2smy!4v1683092920933!5m2!1sen!2smy" 
+                        width="100%" 
+                        height="300" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+                <p>
+                    Visit us at Mid Valley Megamall for expert advice and hands-on experience with our full range of gym equipment.
+                </p>
             </div>
-        </div>
-        <p>
-            We're conveniently located in the heart of the business district, with easy access to public transportation and parking.
-        </p>
-    </div>
-</section>
+        </section>
+
 
         <!-- Testimonials Section -->
         <section id="testimonials" class="testimonials">
             <div class="container">
                 <div class="section-header">
                     <div class="badge">Testimonials</div>
-                    <h2 class="section-title">Loved by businesses worldwide</h2>
+                    <h2 class="section-title">Trusted by Fitness Enthusiasts</h2>
                     <p class="section-description">
-                        Don't just take our word for it. Here's what our customers have to say.
+                        Here's what our customers say about FitHub's gym equipment and services.
                     </p>
                 </div>
 
                 <div class="testimonial-grid">
                     <div class="testimonial-card">
                         <div class="testimonial-content">
-
-                            <div>
-                                <p class="testimonial-text">
-                                    "StreamLine has completely transformed how our team works. We've cut meeting time in half and
-                                    increased our delivery speed by 35%."
-                                </p>
-                                <h4 class="testimonial-author">Sarah Johnson</h4>
-
-                            </div>
+                            <p class="testimonial-text">
+                                "The adjustable dumbbells from FitHub are game-changers. Compact, reliable, and perfect for my home workouts."
+                            </p>
+                            <h4 class="testimonial-author">Zara Lim, Kuala Lumpur</h4>
                         </div>
                     </div>
 
                     <div class="testimonial-card">
                         <div class="testimonial-content">
-
-                            <div>
-                                <p class="testimonial-text">
-                                    "The automation features alone have saved us countless hours. Our team can now focus on what
-                                    really matters instead of repetitive tasks."
-                                </p>
-                                <h4 class="testimonial-author">Michael Chen</h4>
-
-                            </div>
+                            <p class="testimonial-text">
+                                "Exceptional customer service and fast delivery. The treadmill I purchased was top-notch and easy to assemble!"
+                            </p>
+                            <h4 class="testimonial-author">Jason Tan, Selangor</h4>
                         </div>
                     </div>
 
                     <div class="testimonial-card">
                         <div class="testimonial-content">
-
-                            <div>
-                                <p class="testimonial-text">
-                                    "As a remote team, StreamLine has been essential for keeping everyone aligned and productive.
-                                    The ROI has been incredible."
-                                </p>
-                                <h4 class="testimonial-author">Emily Rodriguez</h4>
-
-                            </div>
+                            <p class="testimonial-text">
+                                "As a personal trainer, I rely on quality gear. FitHub never disappoints—reliable barbells and resistance bands!"
+                            </p>
+                            <h4 class="testimonial-author">Nurul Fatin, Penang</h4>
                         </div>
                     </div>
 
                     <div class="testimonial-card">
                         <div class="testimonial-content">
-
-                            <div>
-                                <p class="testimonial-text">
-                                    "The customer support is exceptional. Any time we've had questions, the team has been quick to
-                                    respond and incredibly helpful."
-                                </p>
-                                <h4 class="testimonial-author">David Park</h4>
-
-                            </div>
+                            <p class="testimonial-text">
+                                "Great variety and competitive prices. I bought a full gym setup from them and it’s built to last."
+                            </p>
+                            <h4 class="testimonial-author">Kenny Wong, Johor Bahru</h4>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
+
         <%@ include file="footer.jsp" %>
 
         <script>

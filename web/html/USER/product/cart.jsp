@@ -25,7 +25,93 @@
     <meta charset="UTF-8">
     <title>Your Shopping Cart</title>
     <style>
+        
+         body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #FDFDFD;
+        margin: 0;
+        padding: 40px;
+    }
+
+    h1 {
+        color: #30588C;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #C4C3D0;
+    }
+
+    th {
+        background-color: #30588C;
+        color: white;
+        padding: 12px;
+    }
+
+    td {
+        background-color: #FDFDFD;
+        text-align: center;
+        padding: 10px;
+        border-bottom: 1px solid #6093BF;
+    }
+
+    tr:hover td {
+        background-color: #E0E7F1;
+    }
+
+    .strike {
+        text-decoration: line-through;
+        color: #888;
+    }
+
+    input[type="number"] {
+        width: 60px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        text-align: center;
+    }
+
+    a {
+        color: #254559;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    a:hover {
+        color: #30588C;
+        text-decoration: underline;
+    }
+
+    button {
+        background-color: #30588C;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin: 10px 0;
+        font-weight: bold;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #254559;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    strong {
+        color: #254559;
+    }
+        
         .strike { text-decoration: line-through; color: #888; }
+        
     </style>
 </head>
 <body>
