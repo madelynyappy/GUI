@@ -9,6 +9,7 @@ package Controller;
  * @author Madelyn Yap
  */
 
+import jakarta.resource.cci.ResultSet;
 import jakarta.servlet.http.Part;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -48,21 +49,6 @@ public class AddProductServlet extends HttpServlet {
     System.out.println("CategoryID: " + categoryID);
 
     System.out.println("Reading uploaded file...");
-    
-// Reading uploaded file
-/*
-Part filePart = request.getPart("productImage");
-String fileName = new File(filePart.getSubmittedFileName()).getName();
-
-String uploadPath = getServletContext().getRealPath("/uploads");
-File uploadDir = new File(uploadPath);
-if (!uploadDir.exists()) {
-    uploadDir.mkdirs();
-}
-
-filePart.write(uploadPath + File.separator + fileName);
-System.out.println("File uploaded successfully: " + fileName);
-*/
 
 
 
@@ -74,7 +60,7 @@ System.out.println("File uploaded successfully: " + fileName);
         "INSERT INTO Product (ProductID, ProductName, ProductDescription, ProductPrice, CategoryID) VALUES (?, ?, ?, ?, ?)"
     );
 
-    // Temporary ProductID generation
+    // Generate ProductID
     String productID = "P" + System.currentTimeMillis()%10000;
     psProduct.setString(1, productID);
     psProduct.setString(2, productName);
@@ -83,19 +69,48 @@ System.out.println("File uploaded successfully: " + fileName);
     psProduct.setString(5, categoryID);
 
     psProduct.executeUpdate();
-    System.out.println("Product inserted.");
 
-    /*
+    // Get the inserted productID from database to confirm
+    PreparedStatement psCheck = conn.prepareStatement(
+        "SELECT ProductID FROM Product WHERE ProductID = ?"
+    );
+    psCheck.setString(1, productID);
+    ResultSet rs = psCheck.executeQuery();
+    
+    if(rs.next()) {
+        productID = rs.getString("ProductID");
+    }
+    
+    System.out.println("Product inserted with ID: " + productID);
+
+    // Reading uploaded file
+    Part filePart = request.getPart("productImage");
+    String originalFileName = new File(filePart.getSubmittedFileName()).getName();
+    String timestamp = String.valueOf(System.currentTimeMillis());
+    String fileName = originalFileName.substring(0, originalFileName.lastIndexOf('.')) + "-" + timestamp + ".jpg";
+
+    // Use the confirmed productID for file upload
+    String uploadPath = getServletContext().getRealPath("/image/upload/" + productID);
+    File uploadDir = new File(uploadPath);
+    if (!uploadDir.exists()) {
+        uploadDir.mkdirs();
+    }
+
+    filePart.write(uploadPath + File.separator + fileName);
+    System.out.println("File uploaded successfully: " + fileName);
+
+
     System.out.println("Inserting into ProductImage table...");
     PreparedStatement psImage = conn.prepareStatement(
-        "INSERT INTO ProductImage (ProductID, ImageName) VALUES (?, ?)"
+        "INSERT INTO ProductImage (productid, imagename, description, path) VALUES (?, ?, ?, ?)"
     );
     psImage.setString(1, productID);
     psImage.setString(2, fileName);
+    psImage.setString(3, "Product image for " + productName);
+    psImage.setString(4, uploadPath + File.separator + fileName);
     psImage.executeUpdate();
     System.out.println("Product Image inserted.");
 
-*/
     conn.close();
     System.out.println("Connection closed.");
 

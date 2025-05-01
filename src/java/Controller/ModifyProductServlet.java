@@ -18,13 +18,16 @@ import java.sql.PreparedStatement;
 import model.*;
 
 @WebServlet("/ModifyProductServlet")
-@MultipartConfig
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+                 maxFileSize = 1024 * 1024 * 10,      // 10MB
+                 maxRequestSize = 1024 * 1024 * 50)   // 50MB
 public class ModifyProductServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         
         try {
             String productID = request.getParameter("productID");
@@ -32,9 +35,6 @@ public class ModifyProductServlet extends HttpServlet {
             String productDescription = request.getParameter("productDescription");
             double productPrice = Double.parseDouble(request.getParameter("productPrice"));
             String categoryID = request.getParameter("categoryID");
-
-            Part filePart = request.getPart("productImage");
-            String fileName = new File(filePart.getSubmittedFileName()).getName();
             
             Connection conn = DBConnector.getConnection();
             
@@ -50,19 +50,31 @@ public class ModifyProductServlet extends HttpServlet {
 
             ps.executeUpdate();
             
-            // If new image uploaded, update image
-            if (fileName != null && !fileName.isEmpty()) {
-                String uploadPath = getServletContext().getRealPath("/uploads");
-                File uploadDir = new File(uploadPath);
-                if (!uploadDir.exists()) uploadDir.mkdirs();
+            // Handle image upload if new image provided
+            Part filePart = request.getPart("productImage");
+            if (filePart != null && filePart.getSize() > 0) {
+                String originalFileName = new File(filePart.getSubmittedFileName()).getName();
+                String timestamp = String.valueOf(System.currentTimeMillis());
+                String fileName = originalFileName.substring(0, originalFileName.lastIndexOf('.')) + "-" + timestamp + ".jpg";
 
+                // Create upload directory using productID
+                String uploadPath = getServletContext().getRealPath("/image/upload/" + productID);
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                }
+
+                // Write file to directory
                 filePart.write(uploadPath + File.separator + fileName);
 
+                // Update ProductImage table
                 PreparedStatement psImage = conn.prepareStatement(
-                    "UPDATE ProductImage SET ImageName=? WHERE ProductID=?"
+                    "UPDATE ProductImage SET imagename=?, description=?, path=? WHERE productid=?"
                 );
                 psImage.setString(1, fileName);
-                psImage.setString(2, productID);
+                psImage.setString(2, "Product image for " + productName);
+                psImage.setString(3, uploadPath + File.separator + fileName);
+                psImage.setString(4, productID);
                 psImage.executeUpdate();
             }
             
@@ -75,4 +87,3 @@ public class ModifyProductServlet extends HttpServlet {
         }
     }
 }
-
