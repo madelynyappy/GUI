@@ -3,8 +3,6 @@
     Created on : May 1, 2025, 2:40:31 AM
     Author     : Madelyn Yap
 --%>
-
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, model.*, java.sql.*" %>
 <%

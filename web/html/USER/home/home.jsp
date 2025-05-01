@@ -5,6 +5,18 @@
 --%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="java.util.*, model.*, java.sql.*"%>
+<%
+    List<Product> productList = new ArrayList<>();
+    try {
+        Connection conn = DBConnector.getConnection();
+        ProductDAO productDAO = new ProductDAO(conn);
+        productList = productDAO.getAllProducts();
+        conn.close();
+    } catch (Exception e) {
+        out.println("Error: " + e.getMessage());
+    }
+%>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
 <!DOCTYPE html>
@@ -52,77 +64,29 @@
                 </div>
 
                 <div class="product-grid">
-                    <!-- Product Card 1 -->
-                    <div class="product-card">
-                        <img src="${pageContext.request.contextPath}/images/products/trident_football.jpg" alt="Trident Football">
-                        <h4>Trident Galactic Hybrid Premier Match Football (FIFA Quality Pro)</h4>
-
-                        <p class="price">RM269.00</p>
-                        <button class="add-to-cart">Add to cart</button>
-                    </div>
-
-                    <!-- Product Card 2 -->
-                    <div class="product-card">
-                        <img src="${pageContext.request.contextPath}/images/products/trident_teeball.jpg" alt="Trident Teeball">
-                        <h4>Trident Milestone Double Knit Teeball – 9"</h4>
-
-                        <p class="price">RM45.00</p>
-                        <button class="add-to-cart">Add to cart</button>
-                    </div>
-
-                    <!-- Product Card 3 -->
-                    <div class="product-card">
-                        <img src="${pageContext.request.contextPath}/images/products/trident_landingmat.jpg" alt="Landing Mat">
-                        <h4>Trident High Jump Landing Mat – 10' x 6' x 18" (Blue/Black)</h4>
-
-                        <p class="price">RM3,900.00</p>
-                        <button class="add-to-cart">Add to cart</button>
-                    </div>
-
-                    <!-- Product Card 4 -->
-                    <div class="product-card">
-                        <img src="${pageContext.request.contextPath}/images/products/trident_netball.jpg" alt="Netball Post">
-                        <h4>Trident Master Portable Netball Post</h4>
-
-                        <p class="price">RM450.00</p>
-                        <button class="add-to-cart">Add to cart</button>
-                    </div>
-
-                    <!-- Product Card 1 -->
-                    <div class="product-card">
-                        <img src="${pageContext.request.contextPath}/images/products/trident_football.jpg" alt="Trident Football">
-                        <h4>Trident Galactic Hybrid Premier Match Football (FIFA Quality Pro)</h4>
-
-                        <p class="price">RM269.00</p>
-                        <button class="add-to-cart">Add to cart</button>
-                    </div>
-
-                    <!-- Product Card 2 -->
-                    <div class="product-card">
-                        <img src="${pageContext.request.contextPath}/images/products/trident_teeball.jpg" alt="Trident Teeball">
-                        <h4>Trident Milestone Double Knit Teeball – 9"</h4>
-
-                        <p class="price">RM45.00</p>
-                        <button class="add-to-cart">Add to cart</button>
-                    </div>
-
-                    <!-- Product Card 3 -->
-                    <div class="product-card">
-                        <img src="${pageContext.request.contextPath}/images/products/trident_landingmat.jpg" alt="Landing Mat">
-                        <h4>Trident High Jump Landing Mat – 10' x 6' x 18" (Blue/Black)</h4>
-
-                        <p class="price">RM3,900.00</p>
-                        <button class="add-to-cart">Add to cart</button>
-                    </div>
-
-                    <!-- Product Card 4 -->
-                    <div class="product-card">
-                        <img src="${pageContext.request.contextPath}/images/products/trident_netball.jpg" alt="Netball Post">
-                        <h4>Trident Master Portable Netball Post</h4>
-
-                        <p class="price">RM450.00</p>
-                        <button class="add-to-cart">Add to cart</button>
-                    </div>
+                    <% 
+                        int count = 0;
+                        for (Product p : productList) {
+                            if (count >= 8) break; // Only display first 8 products
+                            
+                            if (count % 4 == 0 && count > 0) {
+                                out.println("</div><div class='product-grid'>");
+                            }
+                    %>
+                        <div class="product-card">
+                            <% if (p.getProductImageList() != null && !p.getProductImageList().isEmpty()) { %>
+                                <img src="${pageContext.request.contextPath}/<%= p.getProductImageList().get(0).getPath() %>" alt="<%= p.getProductName() %>">
+                            <% } else { %>
+                                <img src="${pageContext.request.contextPath}/images/noImage.png" alt="No image available">
+                            <% } %>
+                            <h4><%= p.getProductName() %></h4>
+                            <p class="price">RM<%= String.format("%.2f", p.getProductPrice()) %></p>
+                            <button class="add-to-cart" onclick="window.location.href='<%=request.getContextPath()%>/AddToCartServlet?productID=<%=p.getProductID()%>'">Add to cart</button>
+                        </div>
+                    <%
+                            count++;
+                        }
+                    %>
                 </div>
                 <a href="../product/product.jsp" class="find-out-more">Find Out More!</a>
             </section>
