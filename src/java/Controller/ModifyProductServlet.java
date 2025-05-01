@@ -83,7 +83,7 @@ public class ModifyProductServlet extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect(request.getContextPath() + "/html/ERROR/500error.jsp");
+            response.sendRedirect(request.getContextPath() + "/html/ERROR/408error.jsp");
         }
     }
 }

@@ -9,7 +9,6 @@ package Controller;
  * @author Madelyn Yap
  */
 
-import jakarta.resource.cci.ResultSet;
 import jakarta.servlet.http.Part;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -21,6 +20,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import model.*;
 
 @WebServlet("/AddProductServlet")
