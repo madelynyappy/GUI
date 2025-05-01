@@ -1,13 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Controller;
-
-/**
- *
- * @author Madelyn Yap
- */
 
 import jakarta.servlet.http.Part;
 import jakarta.servlet.ServletException;
@@ -71,14 +62,22 @@ public class AddProductServlet extends HttpServlet {
             System.out.println("Reading uploaded file...");
             Part filePart = request.getPart("productImage");
 
-            if (filePart == null || filePart.getSubmittedFileName() == null || filePart.getSubmittedFileName().isEmpty()) {
-                System.out.println("Uploaded file is missing!");
+            if (filePart == null) {
+                System.out.println("No file part found in request");
                 conn.close();
                 response.sendRedirect(request.getContextPath() + "/html/ERROR/400.jsp");
                 return;
             }
 
-            String originalFileName = new File(filePart.getSubmittedFileName()).getName();
+            String submittedFileName = filePart.getSubmittedFileName();
+            if (submittedFileName == null || submittedFileName.isEmpty()) {
+                System.out.println("No file was uploaded");
+                conn.close();
+                response.sendRedirect(request.getContextPath() + "/html/ERROR/400.jsp");
+                return;
+            }
+
+            String originalFileName = submittedFileName;
             String timestamp = String.valueOf(System.currentTimeMillis());
 
             String extension = originalFileName.contains(".") ?
@@ -86,14 +85,53 @@ public class AddProductServlet extends HttpServlet {
 
             String fileName = originalFileName.replaceAll("\\.[^.]*$", "") + "-" + timestamp + extension;
 
-            String uploadPath = getServletContext().getRealPath("/image/upload/" + productID);
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdirs();
+            // Get the web application's root directory
+            String webRootPath = getServletContext().getRealPath("/");
+            if (webRootPath == null) {
+                System.out.println("Web root path is null");
+                conn.close();
+                response.sendRedirect(request.getContextPath() + "/html/ERROR/500error.jsp");
+                return;
             }
 
-            filePart.write(uploadPath + File.separator + fileName);
-            System.out.println("File uploaded successfully: " + fileName);
+            // Create the upload directory path relative to web root
+            String uploadDirPath = "images" + File.separator + "upload" + File.separator + productID;
+
+            // Create the directory if it doesn't exist
+            File uploadDir = new File(webRootPath + uploadDirPath);
+            if (!uploadDir.exists()) {
+                boolean created = uploadDir.mkdirs();
+                if (!created) {
+                    System.out.println("Failed to create upload directory: " + webRootPath + uploadDirPath);
+                    conn.close();
+                    response.sendRedirect(request.getContextPath() + "/html/ERROR/500error.jsp");
+                    return;
+                }
+            }
+
+            // Create the full file path
+            String filePath = uploadDirPath + File.separator + fileName;
+            
+            try {
+                // Create the target file
+                File targetFile = new File(webRootPath + filePath);
+                
+                // Write the file using InputStream and OutputStream
+                try (InputStream fileContent = filePart.getInputStream();
+                     OutputStream out = new FileOutputStream(targetFile)) {
+                    byte[] buffer = new byte[1024];
+                    int length;
+                    while ((length = fileContent.read(buffer)) > 0) {
+                        out.write(buffer, 0, length);
+                    }
+                }
+                System.out.println("File uploaded successfully: " + fileName);
+            } catch (IOException e) {
+                System.out.println("Error writing file: " + e.getMessage());
+                conn.close();
+                response.sendRedirect(request.getContextPath() + "/html/ERROR/500error.jsp");
+                return;
+            }
 
             // Insert into ProductImage table
             System.out.println("Inserting into ProductImage table...");
@@ -103,7 +141,7 @@ public class AddProductServlet extends HttpServlet {
             psImage.setString(1, productID);
             psImage.setString(2, fileName);
             psImage.setString(3, "Product image for " + productName);
-            psImage.setString(4, uploadPath + File.separator + fileName);
+            psImage.setString(4, filePath);
             psImage.executeUpdate();
             System.out.println("Product Image inserted.");
 

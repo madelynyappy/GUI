@@ -81,7 +81,7 @@ public class StaffRegisterServlet extends HttpServlet {
             ps.executeUpdate();
             conn.close();
 
-            response.sendRedirect(request.getContextPath() + "/html/STAFF/signInSignUp/signIn.jsp");
+            response.sendRedirect(request.getContextPath() + "/html/STAFF/signInSignUp/login.jsp");
 
         } catch (Exception ex) {
             ex.printStackTrace();

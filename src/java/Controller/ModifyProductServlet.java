@@ -4,10 +4,6 @@
  */
 package Controller;
 
-/**
- *
- * @author Madelyn Yap
- */
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,78 +14,77 @@ import java.sql.PreparedStatement;
 import model.*;
 
 @WebServlet("/ModifyProductServlet")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-                 maxFileSize = 1024 * 1024 * 10,      // 10MB
-                 maxRequestSize = 1024 * 1024 * 50)   // 50MB
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2,  // 2MB
+                 maxFileSize = 1024 * 1024 * 10,       // 10MB
+                 maxRequestSize = 1024 * 1024 * 50)    // 50MB
 public class ModifyProductServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        
-        try {
+
+        try (Connection conn = DBConnector.getConnection()) {
             String productID = request.getParameter("productID");
             String productName = request.getParameter("productName");
             String productDescription = request.getParameter("productDescription");
             double productPrice = Double.parseDouble(request.getParameter("productPrice"));
             String categoryID = request.getParameter("categoryID");
-            
-            System.out.println("EditProductServlet called with productID: " + productID);
-            
-            Connection conn = DBConnector.getConnection();
-            
-            // Update Product info
-            PreparedStatement ps = conn.prepareStatement(
-                "UPDATE Product SET ProductName=?, ProductDescription=?, ProductPrice=?, CategoryID=? WHERE ProductID=?"
-            );
-            ps.setString(1, productName);
-            ps.setString(2, productDescription);
-            ps.setDouble(3, productPrice);
-            ps.setString(4, categoryID);
-            ps.setString(5, productID);
 
-            ps.executeUpdate();
-            
-            // Handle image upload if new image provided
+            System.out.println("[ModifyProductServlet] Editing productID: " + productID);
+
+            // Update Product table
+            try (PreparedStatement ps = conn.prepareStatement(
+                    "UPDATE Product SET ProductName=?, ProductDescription=?, ProductPrice=?, CategoryID=? WHERE ProductID=?")) {
+                ps.setString(1, productName);
+                ps.setString(2, productDescription);
+                ps.setDouble(3, productPrice);
+                ps.setString(4, categoryID);
+                ps.setString(5, productID);
+
+                   int rowsUpdated = ps.executeUpdate();
+                if (rowsUpdated == 0) {
+                    throw new SQLException("No product found with ID: " + productID);
+                }
+            }
+
+            // Handle image upload if a new image is provided
             Part filePart = request.getPart("productImage");
             if (filePart != null && filePart.getSize() > 0) {
                 String submittedFileName = filePart.getSubmittedFileName();
-                String timestamp = String.valueOf(System.currentTimeMillis());
-                String fileName;
-                
+
                 if (submittedFileName != null && !submittedFileName.isEmpty()) {
+                    String timestamp = String.valueOf(System.currentTimeMillis());
                     String originalFileName = new File(submittedFileName).getName();
-                    String extension = originalFileName.contains(".") ?
-                        originalFileName.substring(originalFileName.lastIndexOf(".")) : ".jpg";
-                    fileName = originalFileName.replaceAll("\\.[^.]*$", "") + "-" + timestamp + extension;
-                } else {
-                    fileName = timestamp + ".jpg";
+                    String extension = originalFileName.contains(".")
+                            ? originalFileName.substring(originalFileName.lastIndexOf("."))
+                            : ".jpg";
+                    String fileName = originalFileName.replaceAll("\\.[^.]*$", "") + "-" + timestamp + extension;
+
+                    // Create upload directory
+                    String uploadPath = getServletContext().getRealPath("/image/upload/" + productID);
+                    File uploadDir = new File(uploadPath);
+                    if (!uploadDir.exists()) {
+                        uploadDir.mkdirs();
+                    }
+
+                    filePart.write(uploadPath + File.separator + fileName);
+
+                    // Store relative path in DB
+                    String dbPath = "image/upload/" + productID + "/" + fileName;
+
+                    try (PreparedStatement psImage = conn.prepareStatement(
+                            "UPDATE ProductImage SET imagename=?, description=?, path=? WHERE productid=?")) {
+                        psImage.setString(1, fileName);
+                        psImage.setString(2, "Product image for " + productName);
+                        psImage.setString(3, dbPath);
+                        psImage.setString(4, productID);
+                        psImage.executeUpdate();
+                    }
                 }
-
-                // Create upload directory using productID
-                String uploadPath = getServletContext().getRealPath("/image/upload/" + productID);
-                File uploadDir = new File(uploadPath);
-                if (!uploadDir.exists()) {
-                    uploadDir.mkdirs();
-                }
-
-                // Write file to directory
-                filePart.write(uploadPath + File.separator + fileName);
-
-                // Update ProductImage table
-                PreparedStatement psImage = conn.prepareStatement(
-                    "UPDATE ProductImage SET imagename=?, description=?, path=? WHERE productid=?"
-                );
-                psImage.setString(1, fileName);
-                psImage.setString(2, "Product image for " + productName);
-                psImage.setString(3, uploadPath + File.separator + fileName);
-                psImage.setString(4, productID);
-                psImage.executeUpdate();
             }
-            
-            conn.close();
+
             response.sendRedirect(request.getContextPath() + "/html/STAFF/product/productListTest.jsp");
 
         } catch (Exception e) {

@@ -33,6 +33,7 @@ public class ProductDAO {
             p.setProductDescription(rs.getString("ProductDescription"));
             p.setProductPrice(rs.getDouble("ProductPrice"));
             p.setCategoryID(rs.getString("CategoryID"));
+            p.setProductImageList(getProductImage(rs.getString("ProductID")));
             productList.add(p);
         }
         return productList;
@@ -76,7 +77,6 @@ public class ProductDAO {
             p.setProductDescription(rs.getString("productDescription"));
             p.setProductPrice(rs.getDouble("productPrice"));
             p.setCategoryID(rs.getString("categoryID"));
-            p.setDiscount(rs.getInt("discount"));
             list.add(p);
         }
         return list;
@@ -84,6 +84,7 @@ public class ProductDAO {
 
     private List<ProductImage> getProductImage(String productID) throws SQLException {
         List<ProductImage> productImageList = new ArrayList<>();
+        
         String sql = "SELECT * FROM ProductImage WHERE ProductID = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, productID);
@@ -91,11 +92,11 @@ public class ProductDAO {
         
         while (rs.next()) {
             ProductImage pi = new ProductImage();
-            pi.setImageID(rs.getInt("ImageID"));
-            pi.setProductID(rs.getString("ProductID"));
+            pi.setImageID(rs.getInt("imageID"));
+            pi.setProductID(rs.getString("productID"));
             pi.setImageName(rs.getString("ImageName"));
-            pi.setDescription(rs.getString("Description"));
-            pi.setPath(rs.getString("Path"));
+            pi.setDescription(rs.getString("description"));
+            pi.setPath(rs.getString("path"));
             productImageList.add(pi);
         }
         return productImageList;

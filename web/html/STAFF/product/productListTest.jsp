@@ -4,6 +4,7 @@
     Author     : Madelyn Yap
 --%>
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, model.*" %>
 <%@ page import="java.sql.*" %>
@@ -42,12 +43,14 @@
         <tr>
             <td><%= p.getProductID() %></td>
             <td>
-                <% if (p.getProductImageList() != null && !p.getProductImageList().isEmpty()) { %>
-                    <% for (ProductImage pi : p.getProductImageList()) { %>
-                        <img src="<%= pi.getPath() %>" alt="<%= pi.getDescription() %>" style="width:100px; height:auto;">
-                    <% } %>
+                <% if (p.getProductImageList() == null) { %>
+                    <img src="505.png" alt="Product image list is null" style="width:100px; height:auto;">
+                <% } else if (p.getProductImageList().isEmpty()) { %>
+                    <img src="505.png" alt="Product image list is empty" style="width:100px; height:auto;">
                 <% } else { %>
-                    <img src="505.png" alt="No image available" style="width:100px; height:auto;">
+                    <% for (ProductImage pi : p.getProductImageList()) { %>
+                        <img src="<%=request.getContextPath()%>/<%= pi.getPath() %>" alt="<%= pi.getDescription() %>" style="width:100px; height:auto;">
+                    <% } %>
                 <% } %>
             </td>
             <td><%= p.getProductName() %></td>
