@@ -2,6 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Controller;
 
 import jakarta.servlet.*;
@@ -11,6 +15,7 @@ import jakarta.servlet.http.*;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import model.*;
 
 @WebServlet("/ModifyProductServlet")
@@ -43,7 +48,7 @@ public class ModifyProductServlet extends HttpServlet {
                 ps.setString(4, categoryID);
                 ps.setString(5, productID);
 
-                   int rowsUpdated = ps.executeUpdate();
+                int rowsUpdated = ps.executeUpdate();
                 if (rowsUpdated == 0) {
                     throw new SQLException("No product found with ID: " + productID);
                 }
@@ -63,16 +68,24 @@ public class ModifyProductServlet extends HttpServlet {
                     String fileName = originalFileName.replaceAll("\\.[^.]*$", "") + "-" + timestamp + extension;
 
                     // Create upload directory
-                    String uploadPath = getServletContext().getRealPath("/image/upload/" + productID);
+                    String uploadPath = getServletContext().getRealPath("/images/upload/" + productID);
                     File uploadDir = new File(uploadPath);
                     if (!uploadDir.exists()) {
                         uploadDir.mkdirs();
                     }
 
-                    filePart.write(uploadPath + File.separator + fileName);
+                    // Write file using InputStream and OutputStream
+                    try (InputStream fileContent = filePart.getInputStream();
+                         OutputStream out = new FileOutputStream(uploadPath + File.separator + fileName)) {
+                        byte[] buffer = new byte[1024];
+                        int length;
+                        while ((length = fileContent.read(buffer)) > 0) {
+                            out.write(buffer, 0, length);
+                        }
+                    }
 
                     // Store relative path in DB
-                    String dbPath = "image/upload/" + productID + "/" + fileName;
+                    String dbPath = "images/upload/" + productID + "/" + fileName;
 
                     try (PreparedStatement psImage = conn.prepareStatement(
                             "UPDATE ProductImage SET imagename=?, description=?, path=? WHERE productid=?")) {

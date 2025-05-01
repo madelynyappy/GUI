@@ -23,11 +23,11 @@
     <h2>Welcome, <%= managerName %>!</h2>
 
     <ul>
-        <li><a href="${pageContext.request.contextPath}/html/STAFF/customer/viewCustomer.jsp">View Customers</a></li>
+        <li><a href="${pageContext.request.contextPath}/html/STAFF/customer/customerList.jsp">View Customers</a></li>
         <li><a href="${pageContext.request.contextPath}/html/STAFF/product/productListTest.jsp">Manage Products</a></li>
-        <li><a href="${pageContext.request.contextPath}/html/STAFF/report/salesReport.jsp">View Sales Reports</a></li>
+        <li><a href="${pageContext.request.contextPath}/html/STAFF/report/report.jsp">View Sales Reports</a></li>
         <li><a href="${pageContext.request.contextPath}/html/STAFF/home/staffList.jsp">Manage Staff</a></li>
-        <li><a href="${pageContext.request.contextPath}/html/STAFF/signInSignUp/staffLogout.jsp">Logout</a></li>
+        <li><a href="${pageContext.request.contextPath}/html/STAFF/signInSignUp/managerLogout.jsp">Logout</a></li>
     </ul>
 </body>
 </html>

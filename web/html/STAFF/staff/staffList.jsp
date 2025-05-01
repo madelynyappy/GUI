@@ -1,6 +1,6 @@
 <%-- 
-    Document   : staffLogout
-    Created on : Apr 30, 2025, 4:46:36 PM
+    Document   : staffList
+    Created on : May 1, 2025, 3:22:32 PM
     Author     : Madelyn Yap
 --%>
 
@@ -12,8 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-         <h2>You have been logged out</h2>
-    <p>Thank you for using the system. Please <a href="login.jsp">log in again</a> to continue.</p>
-
+        <h1>Hello World!</h1>
     </body>
 </html>
