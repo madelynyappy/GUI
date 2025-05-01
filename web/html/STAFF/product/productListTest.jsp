@@ -41,6 +41,11 @@
         %>
         <tr>
             <td><%= p.getProductID() %></td>
+            <td>
+                <% for (ProductImage pi : p.getProductImageList()) { %>
+                    <img src="<%= pi.getPath() %>" alt="<%= pi.getDescription() %>" style="width:100px; height:auto;">
+                <% } %>
+            </td>
             <td><%= p.getProductName() %></td>
             <td><%= p.getProductDescription() %></td>
             <td><%= String.format("%.2f", p.getProductPrice()) %></td>
@@ -57,4 +62,3 @@
     </table>
 </body>
 </html>
-

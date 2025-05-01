@@ -12,7 +12,9 @@ package model;
 public class ProductImage {
     private int imageID;
     private String productID;
-    private String imageName; // Only the filename, e.g., dumbbell1.png
+    private String imageName;
+    private String description;
+    private String path;
 
     public ProductImage() {}
 
@@ -37,4 +39,19 @@ public class ProductImage {
     public void setImageName(String imageName) {
         this.imageName = imageName;
     }
+
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPath() {
+        return path;
+    }
+    public void setPath(String path) {
+        this.path = path;
+    }
+    
 }
