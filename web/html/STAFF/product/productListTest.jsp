@@ -42,8 +42,12 @@
         <tr>
             <td><%= p.getProductID() %></td>
             <td>
-                <% for (ProductImage pi : p.getProductImageList()) { %>
-                    <img src="<%= pi.getPath() %>" alt="<%= pi.getDescription() %>" style="width:100px; height:auto;">
+                <% if (p.getProductImageList() != null && !p.getProductImageList().isEmpty()) { %>
+                    <% for (ProductImage pi : p.getProductImageList()) { %>
+                        <img src="<%= pi.getPath() %>" alt="<%= pi.getDescription() %>" style="width:100px; height:auto;">
+                    <% } %>
+                <% } else { %>
+                    <img src="505.png" alt="No image available" style="width:100px; height:auto;">
                 <% } %>
             </td>
             <td><%= p.getProductName() %></td>

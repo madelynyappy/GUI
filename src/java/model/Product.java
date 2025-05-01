@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.List;
+
 /**
  *
  * @author Madelyn Yap
@@ -15,6 +17,8 @@ public class Product {
     private String productDescription;
     private double productPrice;
     private String categoryID;
+    private List<ProductImage> productImageList;
+    private int discount;
 
     public Product() {}
 
@@ -53,16 +57,20 @@ public class Product {
     public void setCategoryID(String categoryID) {
         this.categoryID = categoryID;
     }
+
+    public List<ProductImage> getProductImageList() {
+        return productImageList;
+    }
+    public void setProductImageList(List<ProductImage> productImageList) {
+        this.productImageList = productImageList;
+    }
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
     
-    //promotion 
-    private int discount;
-
-public int getDiscount() {
-    return discount;
-}
-
-public void setDiscount(int discount) {
-    this.discount = discount;
-}
-
 }
