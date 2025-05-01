@@ -18,17 +18,27 @@
     <meta charset="UTF-8">
     <title>FitHub | Manager Dashboard</title>
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/fithub.png">
+    <style>
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        h2 {
+            color: #30588C;
+        }
+    </style>
 </head>
 <body>
-    <h2>Welcome, <%= managerName %>!</h2>
-    
-  <ul>
-    <li><a href="${pageContext.request.contextPath}/CustomerListServlet">View Customers</a></li>
-    <li><a href="${pageContext.request.contextPath}/html/STAFF/product/productListTest.jsp">Manage Products</a></li>
-    <li><a href="${pageContext.request.contextPath}/html/STAFF/report/report.jsp">View Sales Reports</a></li>
-    <li><a href="${pageContext.request.contextPath}/StaffListServlet">Manage Staff</a></li>
-    <li><a href="${pageContext.request.contextPath}/html/STAFF/signInSignUp/managerLogout.jsp">Logout</a></li>
-</ul>
+
+    <%-- Include sidebar --%>
+    <jsp:include page="managerSidebar.jsp" />
+
+    <div class="content">
+        <h2>Welcome, <%= managerName %>!</h2>
+        <p>Use the sidebar to manage customers, staff, products, and reports.</p>
+    </div>
 
 </body>
 </html>

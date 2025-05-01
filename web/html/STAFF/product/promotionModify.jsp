@@ -3,6 +3,7 @@
     Created on : May 1, 2025, 2:40:31 AM
     Author     : Madelyn Yap
 --%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, model.*, java.sql.*" %>
 <%
@@ -63,15 +64,12 @@
             
             fetch('<%=request.getContextPath()%>/UpdatePromotionServlet', {
                 method: 'POST',
-                body: formData,
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
+                body: formData
             }).then(response => {
-                if (!response.ok) {
-                    console.error('Network response was not ok',response);
-                    throw new Error('Network response was not ok');
-                    
+                if (response.status === 200) {
+                    window.location.reload();
+                } else {
+                    throw new Error('Server returned status: ' + response.status);
                 }
             }).catch(error => {
                 console.error('Error:', error);

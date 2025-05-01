@@ -91,12 +91,18 @@ public class UpdatePromotionServlet extends HttpServlet {
                 System.out.println("Rows affected: " + rowsAffected);
             }
             
-            response.sendRedirect(request.getContextPath() + "/html/STAFF/product/promotionModify.jsp");
+            // Send success response
+            response.setContentType("text/plain");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write("Success");
             
         } catch (Exception e) {
             System.err.println("Error in UpdatePromotionServlet: ");
             e.printStackTrace();
-            response.sendRedirect(request.getContextPath() + "/html/ERROR/500error.jsp");
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.setContentType("text/plain");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write("Error: " + e.getMessage());
         }
     }
 }
