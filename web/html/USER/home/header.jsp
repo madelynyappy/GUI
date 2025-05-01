@@ -51,6 +51,7 @@
                             <div class="user-menu" id="userMenu">
                                 <a href="${pageContext.request.contextPath}/html/USER/signInSignUp/signIn.jsp">Sign In</a>
                                 <a href="${pageContext.request.contextPath}/LogoutServlet">Log Out</a>
+                                 <a href="${pageContext.request.contextPath}/html/STAFF/home/chooseLogin.jsp">Staff Portal</a>
                             </div>
                         </div>
                     </div>

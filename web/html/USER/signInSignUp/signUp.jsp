@@ -9,51 +9,135 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up</title>
+    <title>FitHub | Sign Up</title>
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/fithub.png">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #F4F4F4;
+            margin: 0;
+            padding: 40px;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 30px;
+            width: 450px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #30588C;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            color: #254559;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        button[type="submit"],
+        button[type="button"] {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #30588C;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button[type="submit"]:hover,
+        button[type="button"]:hover {
+            background-color: #254559;
+        }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .link a {
+            color: #6093BF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .link a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>Create Your Account</h1>
 
-    <% String errorMessage = (String) request.getAttribute("errorMessage"); %>
-<% if (errorMessage != null) { %>
-    <p style="color:red;"><%= errorMessage %></p>
-<% } %>
-
-    
     <form name="signupForm" action="<%=request.getContextPath()%>/CustomerRegisterServlet" method="post" onsubmit="return validateForm()">
+        <h1>Create Your Account</h1>
 
-        <label>Full Name:</label><br>
-        <input type="text" name="customerName" required><br><br>
+        <% String errorMessage = (String) request.getAttribute("errorMessage"); %>
+        <% if (errorMessage != null) { %>
+            <p class="error-message"><%= errorMessage %></p>
+        <% } %>
 
-        <label>Contact Number:</label><br>
-        <input type="text" name="customerContactNumber" required><br><br>
+        <label>Full Name:</label>
+        <input type="text" name="customerName" required>
 
-        <label>Email:</label><br>
-        <input type="email" name="customerEmail" required><br><br>
+        <label>Contact Number:</label>
+        <input type="text" name="customerContactNumber" required>
 
-        <label>Billing Address:</label><br>
-        <textarea name="customerBillingAddress" id="billingAddress" rows="3" cols="40" required></textarea>
-        <br>
+        <label>Email:</label>
+        <input type="email" name="customerEmail" required>
+
+        <label>Billing Address:</label>
+        <textarea name="customerBillingAddress" id="billingAddress" rows="3" required></textarea>
         <button type="button" onclick="copyAddress()">Same as Billing Address</button>
-        <br><br>
 
-        <label>Shipping Address:</label><br>
-        <textarea name="customerShippingAddress" id="shippingAddress" rows="3" cols="40" required></textarea>
+        <label>Shipping Address:</label>
+        <textarea name="customerShippingAddress" id="shippingAddress" rows="3" required></textarea>
 
-        <br><br>
-        <label>Username:</label><br>
-        <input type="text" name="customerUserName" required><br><br>
+        <label>Username:</label>
+        <input type="text" name="customerUserName" required>
 
-        <label>Password:</label><br>
-        <input type="password" name="customerPassword" required><br><br>
+        <label>Password:</label>
+        <input type="password" name="customerPassword" required>
 
         <button type="submit">Sign Up</button>
+
+        <div class="link">
+            <p>Already have an account?
+                <a href="<%=request.getContextPath()%>/html/USER/signInSignUp/signIn.jsp">Sign In</a>
+            </p>
+        </div>
     </form>
-
-    <br>
-    <a href="<%=request.getContextPath()%>/html/USER/signInSignUp/signIn.jsp">Already have an account? Sign In</a>
-
-</body>
 
 <script>
     function copyAddress() {
@@ -70,47 +154,40 @@
         const username = form["customerUserName"].value.trim();
         const password = form["customerPassword"].value.trim();
 
-        // Full Name validation
         const nameRegex = /^[a-zA-Z\s]{2,100}$/;
         if (!nameRegex.test(customerName)) {
             alert("Full Name must be 2-100 characters, letters and spaces only.");
             return false;
         }
 
-        // Contact Number validation
         const phoneRegex = /^[0-9]{8,15}$/;
         if (!phoneRegex.test(contact)) {
             alert("Please enter a valid contact number (only numbers, 8-15 digits).");
             return false;
         }
 
-        // Email validation
         const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
         if (!emailRegex.test(email)) {
             alert("Please enter a valid Gmail address (must end with @gmail.com).");
             return false;
         }
 
-        // Billing Address validation
         if (billingAddress.length < 10) {
             alert("Billing Address must be at least 10 characters.");
             return false;
         }
 
-        // Shipping Address validation
         if (shippingAddress.length < 10) {
             alert("Shipping Address must be at least 10 characters.");
             return false;
         }
 
-        // Username validation
         const usernameRegex = /^[a-zA-Z0-9]{4,20}$/;
         if (!usernameRegex.test(username)) {
             alert("Username must be 4-20 characters, letters and numbers only (no spaces).");
             return false;
         }
 
-        // Password validation
         if (password.length < 6 || !/\d/.test(password) || !/[a-zA-Z]/.test(password)) {
             alert("Password must be at least 6 characters and include both letters and numbers.");
             return false;
@@ -120,4 +197,5 @@
     }
 </script>
 
+</body>
 </html>
