@@ -85,7 +85,7 @@ public class AddProductServlet extends HttpServlet {
 
             String fileName = originalFileName.replaceAll("\\.[^.]*$", "") + "-" + timestamp + extension;
 
-            // Get the web application's root directory
+            // Get the absolute path to the web application's root directory
             String webRootPath = getServletContext().getRealPath("/");
             if (webRootPath == null) {
                 System.out.println("Web root path is null");
@@ -94,15 +94,16 @@ public class AddProductServlet extends HttpServlet {
                 return;
             }
 
-            // Create the upload directory path relative to web root
-            String uploadDirPath = "images" + File.separator + "upload" + File.separator + productID;
+            // Create the upload directory path
+            String uploadDirPath = webRootPath + "images" + File.separator + "upload" + File.separator + productID;
+            System.out.println("Upload directory path: " + uploadDirPath);
 
             // Create the directory if it doesn't exist
-            File uploadDir = new File(webRootPath + uploadDirPath);
+            File uploadDir = new File(uploadDirPath);
             if (!uploadDir.exists()) {
                 boolean created = uploadDir.mkdirs();
                 if (!created) {
-                    System.out.println("Failed to create upload directory: " + webRootPath + uploadDirPath);
+                    System.out.println("Failed to create upload directory: " + uploadDirPath);
                     conn.close();
                     response.sendRedirect(request.getContextPath() + "/html/ERROR/500error.jsp");
                     return;
@@ -111,10 +112,11 @@ public class AddProductServlet extends HttpServlet {
 
             // Create the full file path
             String filePath = uploadDirPath + File.separator + fileName;
+            System.out.println("Full file path: " + filePath);
             
             try {
                 // Create the target file
-                File targetFile = new File(webRootPath + filePath);
+                File targetFile = new File(filePath);
                 
                 // Write the file using InputStream and OutputStream
                 try (InputStream fileContent = filePart.getInputStream();
@@ -133,6 +135,10 @@ public class AddProductServlet extends HttpServlet {
                 return;
             }
 
+            // Store relative path in DB (without the web root path)
+            String dbPath = "images/upload/" + productID + "/" + fileName;
+            System.out.println("DB path: " + dbPath);
+
             // Insert into ProductImage table
             System.out.println("Inserting into ProductImage table...");
             PreparedStatement psImage = conn.prepareStatement(
@@ -141,7 +147,7 @@ public class AddProductServlet extends HttpServlet {
             psImage.setString(1, productID);
             psImage.setString(2, fileName);
             psImage.setString(3, "Product image for " + productName);
-            psImage.setString(4, filePath);
+            psImage.setString(4, dbPath);
             psImage.executeUpdate();
             System.out.println("Product Image inserted.");
 
