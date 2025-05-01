@@ -36,6 +36,8 @@ public class ModifyProductServlet extends HttpServlet {
             double productPrice = Double.parseDouble(request.getParameter("productPrice"));
             String categoryID = request.getParameter("categoryID");
             
+            System.out.println("EditProductServlet called with productID: " + productID);
+            
             Connection conn = DBConnector.getConnection();
             
             // Update Product info
@@ -50,38 +52,41 @@ public class ModifyProductServlet extends HttpServlet {
 
             ps.executeUpdate();
             
-            try {
-                // Handle image upload if new image provided
-                Part filePart = request.getPart("productImage");
-                if (filePart != null && filePart.getSize() > 0) {
-                    String originalFileName = new File(filePart.getSubmittedFileName()).getName();
-                    String timestamp = String.valueOf(System.currentTimeMillis());
-                    String fileName = originalFileName.substring(0, originalFileName.lastIndexOf('.')) + "-" + timestamp + ".jpg";
-
-                    // Create upload directory using productID
-                    String uploadPath = getServletContext().getRealPath("/image/upload/" + productID);
-                    File uploadDir = new File(uploadPath);
-                    if (!uploadDir.exists()) {
-                        uploadDir.mkdirs();
-                    }
-
-                    // Write file to directory
-                    filePart.write(uploadPath + File.separator + fileName);
-
-                    // Update ProductImage table
-                    PreparedStatement psImage = conn.prepareStatement(
-                        "UPDATE ProductImage SET imagename=?, description=?, path=? WHERE productid=?"
-                    );
-                    psImage.setString(1, fileName);
-                    psImage.setString(2, "Product image for " + productName);
-                    psImage.setString(3, uploadPath + File.separator + fileName);
-                    psImage.setString(4, productID);
-                    psImage.executeUpdate();
+            // Handle image upload if new image provided
+            Part filePart = request.getPart("productImage");
+            if (filePart != null && filePart.getSize() > 0) {
+                String submittedFileName = filePart.getSubmittedFileName();
+                String timestamp = String.valueOf(System.currentTimeMillis());
+                String fileName;
+                
+                if (submittedFileName != null && !submittedFileName.isEmpty()) {
+                    String originalFileName = new File(submittedFileName).getName();
+                    String extension = originalFileName.contains(".") ?
+                        originalFileName.substring(originalFileName.lastIndexOf(".")) : ".jpg";
+                    fileName = originalFileName.replaceAll("\\.[^.]*$", "") + "-" + timestamp + extension;
+                } else {
+                    fileName = timestamp + ".jpg";
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-                response.sendRedirect(request.getContextPath() + "/html/ERROR/408error.jsp");
-                return;
+
+                // Create upload directory using productID
+                String uploadPath = getServletContext().getRealPath("/image/upload/" + productID);
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                }
+
+                // Write file to directory
+                filePart.write(uploadPath + File.separator + fileName);
+
+                // Update ProductImage table
+                PreparedStatement psImage = conn.prepareStatement(
+                    "UPDATE ProductImage SET imagename=?, description=?, path=? WHERE productid=?"
+                );
+                psImage.setString(1, fileName);
+                psImage.setString(2, "Product image for " + productName);
+                psImage.setString(3, uploadPath + File.separator + fileName);
+                psImage.setString(4, productID);
+                psImage.executeUpdate();
             }
             
             conn.close();
