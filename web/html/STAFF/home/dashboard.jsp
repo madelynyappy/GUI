@@ -12,6 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <title>FitHub | Staff Dashboard</title>
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/staffIcon.jpg">
 </head>
 <body>
 

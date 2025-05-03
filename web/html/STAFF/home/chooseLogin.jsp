@@ -15,6 +15,11 @@
         body {
             font-family: 'Segoe UI', sans-serif;
             background-color: #FDFDFD;
+            background-image: url('${pageContext.request.contextPath}/images/chooseLoginBackground.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,7 +28,7 @@
         }
 
         .login-container {
-            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.95);
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);

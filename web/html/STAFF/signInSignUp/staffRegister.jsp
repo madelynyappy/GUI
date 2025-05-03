@@ -11,8 +11,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>FitHub | Staff Registration</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/form.css"> <!-- optional stylesheet -->
-        <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/fithub.png">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/form.css"> 
+        <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/staffIcon.jpg">
     </head>
     <body>
 

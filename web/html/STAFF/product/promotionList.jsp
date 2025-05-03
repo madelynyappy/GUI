@@ -7,45 +7,93 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, model.*, java.sql.*" %>
 <%
-    List<Product> promoList = new ArrayList<>();
+    List<Product> promotedProducts = new ArrayList<>();
     try {
         Connection conn = DBConnector.getConnection();
-        ProductDAO dao = new ProductDAO(conn);
-        promoList = dao.getDiscountedProducts(); // you must implement this method
+        ProductDAO productDAO = new ProductDAO(conn);
+        for (Product p : productDAO.getAllProducts()) {
+            if (p.isPromotionEnabled()) {
+                promotedProducts.add(p);
+            }
+        }
         conn.close();
     } catch (Exception e) {
         out.println("Error: " + e.getMessage());
     }
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Staff - Discounted Products</title>
+    <title>FitHub | Promotion List</title>
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/staffIcon.jpg">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background-color: #FDFDFD;
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #30588C;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #C4C3D0;
+        }
+
+        th {
+            background-color: #30588C;
+            color: white;
+            padding: 10px;
+        }
+
+        td {
+            background-color: #FDFDFD;
+            padding: 10px;
+            border-bottom: 1px solid #6093BF;
+            text-align: center;
+        }
+
+        tr:hover {
+            background-color: #E0E7F1;
+        }
+    </style>
 </head>
 <body>
-<h1>Discounted Products (Staff View)</h1>
-<table border="1" cellpadding="8">
-    <tr>
-        <th>Product ID</th>
-        <th>Name</th>
-        <th>Original Price (MYR)</th>
-        <th>Discount (%)</th>
-        <th>Discounted Price (MYR)</th>
-    </tr>
-    <% for (Product p : promoList) {
-        double discount = p.getDiscount();
-        double price = p.getProductPrice();
-        double finalPrice = price - (price * discount / 100);
-    %>
-    <tr>
-        <td><%= p.getProductID() %></td>
-        <td><%= p.getProductName() %></td>
-        <td><%= String.format("%.2f", price) %></td>
-        <td><%= (int)discount %>%</td>
-        <td><%= String.format("%.2f", finalPrice) %></td>
-    </tr>
-    <% } %>
-</table>
+
+<jsp:include page="../home/staffSidebar.jsp" />
+
+<div class="content">
+    <h1>Promotion List</h1>
+    <table>
+        <tr>
+            <th>Product ID</th>
+            <th>Name</th>
+            <th>Discount (%)</th>
+            <th>Category</th>
+            <th>Description</th>
+        </tr>
+        <% for (Product p : promotedProducts) { %>
+        <tr>
+            <td><%= p.getProductID() %></td>
+            <td><%= p.getProductName() %></td>
+            <td><%= p.getDiscount() %>%</td>
+            <td><%= p.getCategoryID() %></td>
+            <td><%= p.getProductDescription() %></td>
+        </tr>
+        <% } %>
+    </table>
+</div>
+
 </body>
 </html>

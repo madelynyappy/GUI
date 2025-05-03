@@ -24,7 +24,7 @@
 <head>
     <meta charset="UTF-8">
     <title>FitHub | Product List</title>
-    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/fithub.png">
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/staffIcon.jpg">
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -39,6 +39,50 @@
 
         h1 {
             color: #30588C;
+        }
+
+        form.search-form {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="text"], select {
+            padding: 6px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: inline-block;
+            margin: 2px 6px;
+        }
+
+        .btn-search {
+            background-color: #30588C;
+        }
+
+        .btn-edit {
+            background-color: #4CAF50;
+        }
+
+        .btn-edit:hover {
+            background-color: #45a049;
+        }
+
+        .btn-delete {
+            background-color: #D9534F;
+        }
+
+        .btn-delete:hover {
+            background-color: #c9302c;
         }
 
         table {
@@ -65,43 +109,6 @@
             height: auto;
             margin: 5px;
         }
-
-        .btn {
-            padding: 6px 12px;
-            border: none;
-            border-radius: 4px;
-            font-weight: bold;
-            text-decoration: none;
-            color: white;
-        }
-
-        .btn-edit {
-            background-color: #4CAF50;
-        }
-
-        .btn-edit:hover {
-            background-color: #45a049;
-        }
-
-        .btn-delete {
-            background-color: #D9534F;
-        }
-
-        .btn-delete:hover {
-            background-color: #c9302c;
-        }
-        
-        .btn {
-    padding: 6px 12px;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-    text-decoration: none;
-    color: white;
-    display: inline-block;
-    margin: 2px 6px;
-}
-
     </style>
 </head>
 <body>
@@ -111,6 +118,23 @@
 
     <div class="content">
         <h1>Product List</h1>
+
+        <%-- Search and Filter Form --%>
+        <form method="get" action="" class="search-form">
+            <input type="text" name="search" placeholder="Search by Product ID or Name" value="<%= request.getParameter("search") != null ? request.getParameter("search") : "" %>">
+            
+            <select name="category">
+                <option value="">All Categories</option>
+                <option value="C100" <%= "C100".equals(request.getParameter("category")) ? "selected" : "" %>>Weights</option>
+                <option value="C200" <%= "C200".equals(request.getParameter("category")) ? "selected" : "" %>>Yoga</option>
+                <option value="C300" <%= "C300".equals(request.getParameter("category")) ? "selected" : "" %>>Cardio</option>
+                <option value="C400" <%= "C400".equals(request.getParameter("category")) ? "selected" : "" %>>Accessories</option>
+                <option value="C500" <%= "C500".equals(request.getParameter("category")) ? "selected" : "" %>>Recovery</option>
+            </select>
+
+            <button type="submit" class="btn btn-search">Search</button>
+        </form>
+
         <table>
             <tr>
                 <th>Product ID</th>
@@ -122,7 +146,22 @@
                 <th>Action</th>
             </tr>
             <%
+                String search = request.getParameter("search");
+                String categoryFilter = request.getParameter("category");
+
                 for (Product p : productList) {
+                    boolean match = true;
+
+                    if (search != null && !search.trim().isEmpty()) {
+                        String s = search.trim().toLowerCase();
+                        match &= p.getProductID().toLowerCase().contains(s) || p.getProductName().toLowerCase().contains(s);
+                    }
+
+                    if (categoryFilter != null && !categoryFilter.isEmpty()) {
+                        match &= categoryFilter.equals(p.getCategoryID());
+                    }
+
+                    if (!match) continue;
             %>
             <tr>
                 <td><%= p.getProductID() %></td>

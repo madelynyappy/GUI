@@ -17,7 +17,7 @@
 <head>
     <meta charset="UTF-8">
     <title>FitHub | Manager Dashboard</title>
-    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/fithub.png">
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/staffIcon.jpg">
     <style>
         .content {
             margin-left: 250px;

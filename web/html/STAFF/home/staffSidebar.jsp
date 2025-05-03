@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <title>FitHub | Staff Panel</title>
-    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/fithub.png">
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/staffIcon.jpg">
     <style>
         body {
             margin: 0;
@@ -21,7 +21,7 @@
             height: 100vh;
             width: 250px;
             position: fixed;
-            background-color: #254559; /* Japanese Indigo */
+            background-color: #254559;
             color: white;
             padding-top: 20px;
         }
@@ -29,7 +29,7 @@
         .sidebar h2 {
             text-align: center;
             margin-bottom: 30px;
-            color: #fdfdfd; /* warm white */
+            color: #fdfdfd; 
         }
 
         .sidebar a {
@@ -41,7 +41,7 @@
         }
 
         .sidebar a:hover {
-            background-color: #30588C; /* B'dazzled Blue */
+            background-color: #30588C; 
         }
 
         .logout-btn {
@@ -54,7 +54,7 @@
         .logout-btn a {
             display: inline-block;
             padding: 10px 20px;
-            background-color: #6093BF; /* Silver Lake Blue */
+            background-color: #6093BF; 
             color: white;
             text-decoration: none;
             border-radius: 5px;
@@ -71,6 +71,7 @@
 <div class="sidebar">
     <h2>Staff Panel</h2>
     <a href="${pageContext.request.contextPath}/CustomerListServlet">Customer Records</a>
+    <a href="${pageContext.request.contextPath}/productadd.jsp">Add Products</a>
     <a href="${pageContext.request.contextPath}/html/STAFF/product/productListTest.jsp">Manage Products</a>
     <a href="${pageContext.request.contextPath}/OrderStatusServlet">Update Order Status</a>
     <a href="${pageContext.request.contextPath}/html/STAFF/product/promotionModify.jsp">Manage Promotion</a>

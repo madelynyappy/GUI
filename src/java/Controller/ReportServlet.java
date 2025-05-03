@@ -55,7 +55,8 @@ public class ReportServlet extends HttpServlet {
     }
 
 
-    private void getReportData(HttpServletRequest request, HttpServletResponse response) {
+    private void getReportData(HttpServletRequest request, HttpServletResponse response) 
+        throws ServletException, IOException {
         String type = request.getParameter("type");
         List<Map<String, Object>> reportData = new ArrayList<>();
 
@@ -167,4 +168,5 @@ public class ReportServlet extends HttpServlet {
             request.getRequestDispatcher("/html/STAFF/report/report.jsp").forward(request, response);
         }       
     }
+    
 }

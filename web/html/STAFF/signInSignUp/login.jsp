@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <title>FitHub | Staff Login</title>
-    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/fithub.png">
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/staffIcon.jpg">
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -97,9 +97,6 @@
             <p class="error-msg">Invalid username or password. Please try again.</p>
         </c:if>
 
-        <div class="register-link">
-            <p>Don't have an account? <a href="${pageContext.request.contextPath}/html/STAFF/signInSignUp/staffRegister.jsp">Register here</a></p>
-        </div>
     </form>
 
 </body>

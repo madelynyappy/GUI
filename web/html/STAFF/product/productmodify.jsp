@@ -13,7 +13,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>FitHub | Add Product</title>
+    <title>FitHub | Modify Product</title>
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/staffIcon.jpg">
 
     <style>

@@ -37,7 +37,6 @@
         font-family: 'Segoe UI', sans-serif;
         background-color: #FDFDFD;
         margin: 0;
-        padding: 40px;
     }
 
     h1 {
@@ -94,34 +93,47 @@
     input[type="submit"]:hover {
         background-color: #254559;
     }
+    
+    .container {
+    display: flex;
+}
+
+.content {
+    flex: 1;
+    padding: 40px;
+}
+
 </style>
 
     
 </head>
-
-
 <body>
-    <h1>Add New Product</h1>
+<div class="container">
+    <jsp:include page="html/STAFF/home/staffSidebar.jsp" />
 
-    <form action="${pageContext.request.contextPath}/AddProductServlet" method="post" enctype="multipart/form-data">
-        Product Name: <input type="text" name="productName" required><br><br>
-        
-        Product Description: <input type="text" name="productDescription" required><br><br>
-        
-        Product Price: <input type="number" name="productPrice" step="0.01" required><br><br>
-        
-        Category:
-        <select name="categoryID" required>
-            <option value="">--Select Category--</option>
-            <% for (Category c : categoryList) { %>
-                <option value="<%= c.getCategoryID() %>"><%= c.getCategoryName() %></option>
-            <% } %>
-        </select><br><br>
-        
-        Product Image: <input type="file" name="productImage" accept="image/png, image/jpeg" required><br><br>
-        
-        <input type="submit" value="Add Product">
-    </form>
+    <div class="content">
+        <h1>Add New Product</h1>
+
+        <form action="${pageContext.request.contextPath}/AddProductServlet" method="post" enctype="multipart/form-data">
+            Product Name: <input type="text" name="productName" required><br><br>
+            Product Description: <input type="text" name="productDescription" required><br><br>
+            Product Price: <input type="number" name="productPrice" step="0.01" required><br><br>
+
+            Category:
+            <select name="categoryID" required>
+                <option value="">--Select Category--</option>
+                <% for (Category c : categoryList) { %>
+                    <option value="<%= c.getCategoryID() %>"><%= c.getCategoryName() %></option>
+                <% } %>
+            </select><br><br>
+
+            Product Image: <input type="file" name="productImage" accept="image/png, image/jpeg" required><br><br>
+
+            <input type="submit" value="Add Product">
+        </form>
+    </div>
+</div>
 </body>
+
 </html>
 

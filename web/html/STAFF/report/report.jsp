@@ -1,11 +1,18 @@
-    <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%-- 
+    Document   : report
+    Created on : May 02, 2025, 5:03:46 PM
+    Author     : Madelyn Yap
+--%>   
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
     <%@ page import="java.util.*" %>
     <%@ page import="java.text.*" %>
     <!DOCTYPE html>
     <html>
     <head>
-        <title>Sales Report</title>
+        <title>FitHub | Sales Report</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/report.css">
+        <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/staffIcon.jpg">
         
     </head>
     <body>
@@ -66,7 +73,11 @@
 
         if (reportData == null || reportData.isEmpty()) {
     %>
-        <p>No data available for this report.</p>
+       <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 300px;">
+    <p>No data available for this report.</p>
+    <p>Please Select Other Option To View The Following Reports</p>
+</div>
+
     <%
         } else {
     %>
