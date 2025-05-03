@@ -29,8 +29,77 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Add New Product</title>
+     <title>FitHub | Add Product</title>
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/staffIcon.jpg">
+
+    <style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #FDFDFD;
+        margin: 0;
+        padding: 40px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #30588C;
+        margin-bottom: 30px;
+    }
+
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    label, input, select {
+        display: block;
+        width: 100%;
+        margin-top: 10px;
+        font-size: 16px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+    }
+
+    input[type="file"] {
+        margin-top: 5px;
+        padding: 6px;
+        background-color: #f8f8f8;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+    }
+
+    input[type="submit"] {
+        margin-top: 25px;
+        background-color: #30588C;
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #254559;
+    }
+</style>
+
+    
 </head>
+
+
 <body>
     <h1>Add New Product</h1>
 

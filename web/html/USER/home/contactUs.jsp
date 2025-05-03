@@ -11,7 +11,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/contactUs.css">
-        <title>Contact Us</title>
+        <title>FitHub | Contact Us</title>
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/fithub.png">
     </head>
     <body>
         <%@ include file="header.jsp" %>
@@ -102,7 +103,7 @@
                             </div>
                             <div class="contact-details">
                                 <p class="contact-label">Email</p>
-                                <p class="contact-text">contact@yourcompany.com</p>
+                                <p class="contact-text">support@fithub.com</p>
                             </div>
                         </div>
 
