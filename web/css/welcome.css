@@ -14,36 +14,42 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     --lavender-gray: #C4C3D0;
 }
 
-/* General page styling */
+/* Full-page background */
 body {
     font-family: Arial, sans-serif;
-    background-color: var(--warm-white);
-    color: var(--japanese-indigo);
     margin: 0;
     padding: 0;
-    text-align: center; /* center all text globally */
+    background-image: url('../images/welcome.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
-/* Card Container */
-.checkout-card {
-    max-width: 500px;
-    margin: 80px auto;
-    padding: 30px;
+/* Card-like welcome box */
+.welcome-box {
     background-color: white;
+    padding: 40px 30px;
     border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 1s ease-in;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    max-width: 500px;
+    width: 90%;
+    animation: fadeIn 1s ease;
 }
 
-/* Text styles inside the card */
-.checkout-card h1 {
+.welcome-box h1 {
+    color: var(--bdazzled-blue);
     font-size: 2em;
     margin-bottom: 10px;
 }
 
-.checkout-card p {
-    font-size: 1.2em;
+.welcome-box p {
     color: var(--lavender-gray);
+    font-size: 1.2em;
     margin-bottom: 25px;
 }
 
@@ -78,24 +84,14 @@ body {
     background-color: #922d2d;
 }
 
-/* Progress Bar */
-.progress-bar {
-    background-color: #e0e0e0;
-    height: 8px;
-    border-radius: 4px;
-    margin: 40px auto;
-    width: 60%;
-}
-
-.progress {
-    height: 100%;
-    background-color: var(--bdazzled-blue);
-    border-radius: 4px;
-    transition: width 0.4s ease-in-out;
-}
-
-/* Animation */
+/* Fade-in animation */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

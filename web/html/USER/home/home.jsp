@@ -135,6 +135,7 @@
                 <p class="trust-footer"><i class="bi bi-people-fill"></i> Join thousands of satisfied customers. Experience the FitHub difference today!</p>
             </section>
 
+            <!-- comment
             <style>
                 .promotion-full {
                     position: relative;
@@ -170,7 +171,7 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section>  -->
 
             <!-- To Know More Section -->
             <section class="to-know-more-section">
@@ -218,7 +219,7 @@
                     <span class="subtext">Sign in for the best experience</span>
                     <a href="${pageContext.request.contextPath}/html/USER/signInSignUp/signIn.jsp" class="sign-in">Sign In</a>
                     <span class="divider">|</span>
-                    <a href="${pageContext.request.contextPath}/html/USER/signInSignUp/signUp1.jsp" class="create-account">Create Account</a>
+                    <a href="${pageContext.request.contextPath}/html/USER/signInSignUp/signUp.jsp" class="create-account">Create Account</a>
                 </p>
             </section>
 

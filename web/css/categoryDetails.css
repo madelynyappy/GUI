@@ -94,3 +94,184 @@ body {
         border-radius: 8px;
         transition: background-color 0.3s ease;
     }
+
+    :root {
+            --primary-color: #0a1929;
+            --accent-color: #2196f3;
+            --text-color: #ffffff;
+            --secondary-text: #e0e0e0;
+            --button-color: #2196f3;
+        }
+        
+  /* Driving Time Section */
+        .driving-time-section {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            padding: 40px 0;
+        }
+        
+        .driving-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .driving-list {
+            grid-column: 1;
+        }
+        
+        .driving-feature {
+            grid-column: 2;
+        }
+        
+        .driving-item {
+            display: flex;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+        
+        .driving-item img {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            margin-right: 15px;
+            border-radius: 4px;
+        }
+        
+        .driving-item-content h4 {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            color: var(--accent-color);
+        }
+        
+        .driving-item-content p {
+            font-size: 0.8rem;
+            color: var(--secondary-text);
+        }
+        
+        .driving-feature img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        
+          
+        .view-all {
+            display: block;
+            text-align: center;
+            margin: 30px auto;
+            background-color: var(--button-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            width: fit-content;
+            font-weight: 500;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .blog-grid, .news-grid, .advice-grid, .driving-grid, .accounting-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .advice-main, .advice-sidebar, .driving-list, .driving-feature, .accounting-main, .accounting-sidebar {
+                grid-column: 1;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+ 
+        
+        
+.product-section {
+    background-color: #254559;
+    padding: 40px 20px;
+    border-radius: 10px;
+    margin: 60px auto;
+    max-width: 1200px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.section-header h2 {
+    color: #6093BF;
+    margin: 0;
+}
+
+.see-more-link {
+    color: #30588C;
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.see-more-link:hover {
+    color: #C4C3D0;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 35px;
+}
+
+.product-card {
+    background-color: #ffffff;
+    color: #254559;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+.product-card h4 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.product-card .stock {
+    color: #30588C;
+    font-weight: bold;
+}
+
+.product-card .price {
+    color: #6093BF;
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+.product-card .add-to-cart {
+    border: 1px solid #254559;
+    background: none;
+    color: #254559;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.product-card .add-to-cart:hover {
+    background-color: #254559;
+    color: white;
+}
