@@ -70,8 +70,16 @@
     </style>
 </head>
 <body>
+  <%-- Sidebar --%>
+   <%
+    String role = (String) session.getAttribute("userRole");
+    String sidebarPath = "../home/staffSidebar.jsp"; // default
 
-<jsp:include page="../home/staffSidebar.jsp" />
+    if ("manager".equalsIgnoreCase(role)) {
+        sidebarPath = "../home/managerSidebar.jsp";
+    }
+%>
+<jsp:include page="<%= sidebarPath %>" />
 
 <div class="content">
     <h1>Promotion List</h1>

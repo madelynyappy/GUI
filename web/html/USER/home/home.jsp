@@ -166,7 +166,7 @@
                                 Discover unbeatable prices on top-quality fitness & wellness equipment.<br>
                                 Upgrade your workout, without breaking the bank.
                             </p>
-                            <a href="${pageContext.request.contextPath}/html/USER/promotion/promotion.jsp" class="btn-primary promotion-button">Shop Now</a>
+                            <a href="${pageContext.request.contextPath}/html/USER/product/promotion.jsp" class="btn-primary promotion-button">Shop Now</a>
                         </div>
                     </div>
                 </div>

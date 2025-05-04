@@ -1,6 +1,6 @@
 <%-- 
-    Document   : product
-    Created on : Apr 14, 2025, 3:46:10 PM
+    Document   : promotionProduct
+    Created on : May 1, 2025, 2:28:33 AM
     Author     : Madelyn Yap
 --%>
 
@@ -23,7 +23,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
          <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css">
-        <title>Products | FitHub</title>
+        <title>Promotion | FitHub</title>
     </head>
     <body>
          <%@ include file="../home/header.jsp" %>
@@ -31,7 +31,7 @@
          <!-- Product Showcase Section -->
             <section class="product-section">
                 <div class="section-header">
-                    <h2>See Our Products</h2>
+                    <h2>See Our Promotion Products</h2>
                     <a href="USER/product/product.jsp" class="see-more-link">See More<i class="bi bi-arrow-right"></i></a>
                 </div>
 
@@ -65,3 +65,4 @@
            <%@ include file="../home/footer.jsp" %>
     </body>
 </html>
+

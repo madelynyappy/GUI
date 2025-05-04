@@ -9,12 +9,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+       <title>FitHub | Manager Logged Out</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/logout.css">
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/staffIcon.jpg">
     </head>
-    <body>
-         <h2>You have been logged out</h2>
-    <p>Thank you for using the system. Please <a href="managerLogin.jsp">log in again</a> to continue.</p>
+   <div class="logout-container">
+    <h2>You have been logged out</h2>
+    <p>Thank you for using the system. Please <a href="login.jsp">log in again</a> to continue.</p>
+</div>
+
 
     </body>
 </html>

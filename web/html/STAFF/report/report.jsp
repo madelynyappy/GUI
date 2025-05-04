@@ -198,13 +198,62 @@
             <%
                 Map<String, Object> firstRow = reportData.get(0);
                 for (String column : firstRow.keySet()) {
+                    String label = column;
+                    switch (column.toUpperCase()) {
+                        case "TOTALREVENUE":
+                    label = "Total Revenue (RM)";
+                    break;
+                case "TOTALSOLD":
+                    label = "Units Sold";
+                    break;
+                case "PRODUCTNAME":
+                    label = "Product Name";
+                    break;
+                case "ORDERTOTAL":
+                    label = "Order Total (RM)";
+                    break;
+                case "ORDERSCOUNT":
+                    label = "Total Orders";
+                    break;
+                case "CATEGORYNAME":
+                    label = "Category";
+                    break;
+                case "DATE":
+                    label = "Date";
+                    break;
+                case "ORDERDATE":
+                    label = "Order Date";
+                    break;
+                case "TOTALITEMS":
+                    label = "Total Items";
+                    break;
+                case "TOTALORDERS":
+                    label = "Total Orders";
+                    break;
+                case "DAILYTOTAL":
+                    label = "Daily Total (RM)";
+                    break;
+                case "MONTHNUM":
+                    label = "Month";
+                    break;
+                case "MONTHLYTOTAL":
+                    label = "Monthly Total (RM)";
+                    break;
+                case "YEARNUM":
+                    label = "Year";
+                    break;
+                case "YEARTOTAL":
+                    label = "Yearly Total (RM)";
+                    break;
+                    }
             %>
-            <th><%= column %></th>
+            <th><%= label %></th>
             <%
                 }
             %>
         </tr>
         </thead>
+
         <tbody>
         <%
             int index = 1;
