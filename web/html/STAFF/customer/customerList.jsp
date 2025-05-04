@@ -87,7 +87,16 @@ input[type="text"] {
 <body>
 
     <%-- Sidebar --%>
-    <jsp:include page="../home/staffSidebar.jsp" />
+   <%
+    String role = (String) session.getAttribute("userRole");
+    String sidebarPath = "../home/staffSidebar.jsp"; // default
+
+    if ("manager".equalsIgnoreCase(role)) {
+        sidebarPath = "../home/managerSidebar.jsp";
+    }
+%>
+<jsp:include page="<%= sidebarPath %>" />
+
 
     <div class="content">
         <h1>Customer List</h1>

@@ -3,120 +3,125 @@
     Created on : May 02, 2025, 5:03:46 PM
     Author     : Madelyn Yap
 --%>   
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <%@ page import="java.util.*" %>
-    <%@ page import="java.text.*" %>
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>FitHub | Sales Report</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/report.css">
-        <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/staffIcon.jpg">
-        
-    </head>
-    <body>
-    <h1>Sales Report</h1>
-
-    <div class="button-group">
-
-        <form method="get" action="${pageContext.request.contextPath}/ReportServlet">
-            <div class="report-buttons">
-                <button type="submit" name="type" value="top10">Top 10 Sold Products</button>
-            </div>
-        </form>
-
-        <form method="get" action="${pageContext.request.contextPath}/ReportServlet" id="dailyForm">
-            <div class="report-buttons">
-                <button type="button" onclick="toggleDropdown('daily')">Daily Sales</button>
-            </div>
-            <div class="dropdown-inputs">
-                <div id="daily-dropdown" class="dropdown-container" style="display: none;">
-                    <input type="hidden" name="type" value="daily">
-                    <input type="date" name="date" required>
-                    <button type="submit" class="submit-btn">Generate Daily Report</button>
-                </div>
-            </div>
-        </form>
-
-        <form method="get" action="${pageContext.request.contextPath}/ReportServlet" id="monthlyForm">
-            <div class="report-buttons">
-                <button type="button" onclick="toggleDropdown('monthly')">Monthly Sales</button>
-            </div>
-            <div class="dropdown-inputs">
-                <div id="monthly-dropdown" class="dropdown-container" style="display: none;">
-                    <input type="hidden" name="type" value="monthly">
-                    <input type="month" name="monthInput" id="monthInput" required>
-                    <button type="submit" class="submit-btn">Generate Monthly Report</button>
-                </div>
-            </div>
-        </form>
-
-        <form method="get" action="${pageContext.request.contextPath}/ReportServlet" id="yearlyForm">
-            <div class="report-buttons">
-                <button type="button" onclick="toggleDropdown('yearly')">Yearly Sales</button>
-            </div>
-            <div class="dropdown-inputs">
-                <div id="yearly-dropdown" class="dropdown-container" style="display: none;">
-                    <input type="hidden" name="type" value="yearly">
-                    <select name="year" required></select>
-                    <button type="submit" class="submit-btn">Generate Yearly Report</button>
-                </div>
-            </div>
-        </form>
-
+<%@ page import="java.util.*" %>
+<%@ page import="java.text.*" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FitHub | Sales Report</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/report.css">
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/staffIcon.jpg">
+  
+</head>
+<body>
+<div class="container">
+    <div class="sidebar">
+        <jsp:include page="../home/managerSidebar.jsp" />
     </div>
 
-    <%
-        String reportType = (String) request.getAttribute("reportType");
-        List<Map<String, Object>> reportData = (List<Map<String, Object>>) request.getAttribute("reportData");
+    <div class="content">
+        <h1>Sales Report</h1>
 
-        if (reportData == null || reportData.isEmpty()) {
-    %>
-       <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 300px;">
-    <p>No data available for this report.</p>
-    <p>Please Select Other Option To View The Following Reports</p>
+        <div class="button-group">
+
+            <form method="get" action="${pageContext.request.contextPath}/ReportServlet">
+                <div class="report-buttons">
+                    <button type="submit" name="type" value="top10">Top 10 Sold Products</button>
+                </div>
+            </form>
+
+            <form method="get" action="${pageContext.request.contextPath}/ReportServlet" id="dailyForm">
+                <div class="report-buttons">
+                    <button type="button" onclick="toggleDropdown('daily')">Daily Sales</button>
+                </div>
+                <div class="dropdown-inputs">
+                    <div id="daily-dropdown" class="dropdown-container" style="display: none;">
+                        <input type="hidden" name="type" value="daily">
+                        <input type="date" name="date" required>
+                        <button type="submit" class="submit-btn">Generate Daily Report</button>
+                    </div>
+                </div>
+            </form>
+
+            <form method="get" action="${pageContext.request.contextPath}/ReportServlet" id="monthlyForm">
+                <div class="report-buttons">
+                    <button type="button" onclick="toggleDropdown('monthly')">Monthly Sales</button>
+                </div>
+                <div class="dropdown-inputs">
+                    <div id="monthly-dropdown" class="dropdown-container" style="display: none;">
+                        <input type="hidden" name="type" value="monthly">
+                        <input type="month" name="monthInput" id="monthInput" required>
+                        <button type="submit" class="submit-btn">Generate Monthly Report</button>
+                    </div>
+                </div>
+            </form>
+
+            <form method="get" action="${pageContext.request.contextPath}/ReportServlet" id="yearlyForm">
+                <div class="report-buttons">
+                    <button type="button" onclick="toggleDropdown('yearly')">Yearly Sales</button>
+                </div>
+                <div class="dropdown-inputs">
+                    <div id="yearly-dropdown" class="dropdown-container" style="display: none;">
+                        <input type="hidden" name="type" value="yearly">
+                        <select name="year" required></select>
+                        <button type="submit" class="submit-btn">Generate Yearly Report</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <%
+            String reportType = (String) request.getAttribute("reportType");
+            List<Map<String, Object>> reportData = (List<Map<String, Object>>) request.getAttribute("reportData");
+
+            if (reportData == null || reportData.isEmpty()) {
+        %>
+            <div class="no-data">
+                <p>No data available for this report.</p>
+                <p>Please Select Other Option To View The Following Reports</p>
+            </div>
+        <%
+            } else {
+        %>
+            <table>
+                <thead>
+                <tr>
+                    <%
+                        Map<String, Object> firstRow = reportData.get(0);
+                        for (String column : firstRow.keySet()) {
+                    %>
+                    <th><%= column %></th>
+                    <%
+                        }
+                    %>
+                </tr>
+                </thead>
+                <tbody>
+                <%
+                    for (Map<String, Object> row : reportData) {
+                %>
+                <tr>
+                    <%
+                        for (Object value : row.values()) {
+                    %>
+                    <td><%= value %></td>
+                    <%
+                        }
+                    %>
+                </tr>
+                <%
+                    }
+                %>
+                </tbody>
+            </table>
+        <%
+            }
+        %>
+    </div>
 </div>
 
-    <%
-        } else {
-    %>
-        <table border="1" cellpadding="8">
-            <thead>
-            <tr>
-    <%
-                Map<String, Object> firstRow = reportData.get(0);
-                for (String column : firstRow.keySet()) {
-    %>
-                <th><%= column %></th>
-    <%
-                }
-    %>
-            </tr>
-            </thead>
-            <tbody>
-    <%
-            for (Map<String, Object> row : reportData) {
-    %>
-            <tr>
-    <%
-                for (Object value : row.values()) {
-    %>
-                <td><%= value %></td>
-    <%
-                }
-    %>
-            </tr>
-    <%
-            }
-    %>
-            </tbody>
-        </table>
-    <%
-        }
-    %>
-
-    <script>
+<script>
     document.addEventListener('DOMContentLoaded', function () {
         const today = new Date();
         const todayMonth = today.toISOString().slice(0, 7);
@@ -133,7 +138,7 @@
                 .catch(err => console.error('Error:', err));
         }
 
-        window.toggleDropdown = function(type) {
+        window.toggleDropdown = function (type) {
             document.getElementById('daily-dropdown').style.display = 'none';
             document.getElementById('monthly-dropdown').style.display = 'none';
             document.getElementById('yearly-dropdown').style.display = 'none';
@@ -170,6 +175,6 @@
             }
         };
     });
-    </script>
-    </body>
-    </html>
+</script>
+</body>
+</html>

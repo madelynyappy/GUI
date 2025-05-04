@@ -8,7 +8,6 @@ package Controller;
  *
  * @author Madelyn Yap
  */
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -32,7 +31,7 @@ public class ManagerLoginServlet extends HttpServlet {
         try {
             Connection conn = DBConnector.getConnection();
             PreparedStatement ps = conn.prepareStatement(
-                "SELECT * FROM MANAGER WHERE MANAGERUSERNAME = ? AND MANAGERPASSWORD = ?"
+                    "SELECT * FROM MANAGER WHERE MANAGERUSERNAME = ? AND MANAGERPASSWORD = ?"
             );
             ps.setString(1, username);
             ps.setString(2, password);
@@ -40,13 +39,14 @@ public class ManagerLoginServlet extends HttpServlet {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                // Successful login
                 HttpSession session = request.getSession();
                 session.setAttribute("managerID", rs.getString("MANAGERID"));
                 session.setAttribute("managerName", rs.getString("MANAGERNAME"));
 
+                session.setAttribute("userRole", "manager"); 
+
                 conn.close();
-                response.sendRedirect(request.getContextPath() + "/html/STAFF/home/managerDashboard.jsp"); // adjust if needed
+                response.sendRedirect(request.getContextPath() + "/html/STAFF/home/managerDashboard.jsp");
             } else {
                 // Failed login
                 conn.close();
@@ -59,4 +59,3 @@ public class ManagerLoginServlet extends HttpServlet {
         }
     }
 }
-

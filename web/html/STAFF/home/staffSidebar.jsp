@@ -68,6 +68,7 @@
 </head>
 <body>
 
+        <jsp:include page="../home/managerSidebar.jsp" />
 <div class="sidebar">
     <h2>Staff Panel</h2>
     <a href="${pageContext.request.contextPath}/CustomerListServlet">Customer Records</a>

@@ -6,18 +6,39 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Created on : Apr 29, 2025, 11:37:39 PM
     Author     : Madelyn Yap
 */
+/* 
+    Cleaned & Optimized CSS for Sales Report Page
+    Author: Madelyn Yap
+*/
 
 body {
     font-family: 'Segoe UI', sans-serif;
-    background-color: #FDFDFD;
+    background-color: #F5F7FA;
     margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #1f3a5f;
+    flex-shrink: 0;
+}
+
+.content {
+    flex-grow: 1;
     padding: 40px;
+    box-sizing: border-box;
 }
 
 h1 {
     color: #30588C;
     text-align: center;
-    margin-bottom: 30px;
+    margin: 18px 0 30px 0;
 }
 
 /* Button Section */
@@ -29,7 +50,8 @@ h1 {
     margin-bottom: 30px;
 }
 
-.report-buttons button {
+.report-buttons button,
+.submit-btn {
     background-color: #30588C;
     color: white;
     border: none;
@@ -41,20 +63,15 @@ h1 {
     min-width: 180px;
 }
 
-.report-buttons button:hover,
-.submit-btn:hover {
-    background-color: #254559;
-}
-
 .submit-btn {
     margin-top: 10px;
     background-color: #6093BF;
-    color: white;
-    border: none;
     padding: 8px 14px;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
+}
+
+.report-buttons button:hover,
+.submit-btn:hover {
+    background-color: #254559;
 }
 
 /* Dropdown Inputs */
@@ -78,22 +95,33 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 30px;
-    background-color: #C4C3D0;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 th {
     background-color: #30588C;
     color: white;
     padding: 12px;
+    text-align: left;
 }
 
 td {
-    background-color: #FDFDFD;
-    padding: 10px;
-    text-align: center;
-    border-bottom: 1px solid #6093BF;
+    padding: 12px;
+    border-bottom: 1px solid #d2dbe8;
+    text-align: left;
 }
 
 tr:hover td {
     background-color: #E0E7F1;
+}
+
+/* No data fallback message */
+.no-data {
+    text-align: center;
+    margin-top: 100px;
+    font-size: 16px;
+    color: #444;
 }

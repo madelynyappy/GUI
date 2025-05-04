@@ -8,8 +8,6 @@ package Controller;
  *
  * @author Madelyn Yap
  */
-
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -45,11 +43,12 @@ public class StaffLoginServlet extends HttpServlet {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                // Login successful
                 HttpSession session = request.getSession();
                 session.setAttribute("staffID", rs.getString("staffID"));
                 session.setAttribute("staffName", rs.getString("staffName"));
                 session.setAttribute("staffRoleTitle", rs.getString("staffRoleTitle"));
+
+                session.setAttribute("userRole", "staff"); 
 
                 response.sendRedirect(request.getContextPath() + "/html/STAFF/home/dashboard.jsp");
             } else {
@@ -62,9 +61,24 @@ public class StaffLoginServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/html/ERROR/500error.jsp");
         } finally {
             // Close JDBC resources
-            try { if (rs != null) rs.close(); } catch (Exception ignored) {}
-            try { if (ps != null) ps.close(); } catch (Exception ignored) {}
-            try { if (conn != null) conn.close(); } catch (Exception ignored) {}
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception ignored) {
+            }
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (Exception ignored) {
+            }
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception ignored) {
+            }
         }
     }
 }
