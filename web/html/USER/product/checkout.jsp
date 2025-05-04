@@ -37,7 +37,7 @@
 </head>
 <body>
 <%@ include file="../home/header.jsp" %>
-    
+    <div class="checkout-container">
     <h1>Checkout</h1>
 
     <% if (cart == null || cart.isEmpty()) { %>
@@ -116,6 +116,7 @@
             <button type="submit">Place Order</button>
         </form>
     <% } %>
+    </div>
     
 <%@ include file="../home/footer.jsp" %>    
 </body>

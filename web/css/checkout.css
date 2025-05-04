@@ -59,12 +59,27 @@ select {
 
 button[type="submit"] {
     background-color: #30588C; 
-    margin-top: 20px;
 }
 
 button[type="button"] {
     background-color: #254559; 
     color: white;
     margin-top: 20px;
+}
+
+.checkout-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+}
+
+/* Optional: ensure the background isn’t overly white */
+body {
+    background-color: #FAF9F7; /* warm white */
+    padding: 0;
+    margin: 0;
 }
 

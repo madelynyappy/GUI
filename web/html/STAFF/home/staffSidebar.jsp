@@ -75,7 +75,7 @@
     <a href="${pageContext.request.contextPath}/productadd.jsp">Add Products</a>
     <a href="${pageContext.request.contextPath}/html/STAFF/product/productListTest.jsp">Manage Products</a>
     <a href="${pageContext.request.contextPath}/OrderStatusServlet">Update Order Status</a>
-    <a href="${pageContext.request.contextPath}/html/STAFF/product/promotionModify.jsp">Manage Promotion</a>
+    <!-- comment <a href="${pageContext.request.contextPath}/html/STAFF/product/promotionModify.jsp">Manage Promotion</a>-->  
 
     <div class="logout-btn">
         <a href="${pageContext.request.contextPath}/html/STAFF/signInSignUp/staffLogout.jsp">Logout</a>
