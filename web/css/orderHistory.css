@@ -1,0 +1,55 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : May 4, 2025, 5:50:08 PM
+    Author     : Madelyn Yap
+*/
+
+
+.order-box {
+    border: 1px solid #cccccc;
+    padding: 20px;
+    margin-bottom: 30px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    border: 1px solid #cccccc;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+.bar-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 400px;
+    margin-top: 5px;
+}
+
+.status-step {
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+}
+
+.bar-fill {
+    height: 8px;
+    border-radius: 6px;
+    margin-top: 4px;
+    width: 100%;
+    background: #ccc;
+}
+

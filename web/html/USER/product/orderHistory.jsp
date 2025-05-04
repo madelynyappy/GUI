@@ -10,50 +10,13 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Order History</title>
-    <style>
-        .order-box {
-            border: 1px solid #cccccc;
-            padding: 20px;
-            margin-bottom: 30px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        th, td {
-            border: 1px solid #cccccc;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            background-color: #f0f0f0;
-        }
-        .bar-container {
-            display: flex;
-            justify-content: space-between;
-            max-width: 400px;
-            margin-top: 5px;
-        }
-        .status-step {
-            flex: 1;
-            text-align: center;
-            font-weight: bold;
-        }
-        .bar-fill {
-            height: 8px;
-            border-radius: 6px;
-            margin-top: 4px;
-            width: 100%;
-            background: #ccc;
-        }
-    </style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/checkout.css">
+     <title>FitHub | Checkout Cart</title>
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/fithub.png">
+   
 </head>
 <body>
-
+<jsp:include page="../home/header.jsp" />
 <h1>Your Order History - <%= request.getAttribute("customerName") %></h1>
 
 <%
@@ -112,6 +75,6 @@
 
 <br>
 <a href="<%=request.getContextPath()%>/html/USER/home/home.jsp">Back to Home</a>
-
+<jsp:include page="../home/footer.jsp" />
 </body>
 </html>

@@ -10,13 +10,14 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Welcome Page</title>
+    <title>FitHub | Checkout Cart</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/checkout.css">
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/fithub.png">
 </head>
 <body>
     <%
         HttpSession sessionUser = request.getSession(false);
         if (sessionUser == null || sessionUser.getAttribute("customerName") == null) {
-            // Not logged in, redirect to sign in
             response.sendRedirect(request.getContextPath() + "/html/USER/signInSignUp/signIn.jsp");
             return;
         }
@@ -24,13 +25,18 @@
         String customerName = (String) sessionUser.getAttribute("customerName");
     %>
 
-    <h1>Welcome, <%= customerName %>!</h1>
+    <div class="checkout-card">
+        <h1> Welcome back, <%= customerName %>!</h1>
+        <p>Ready to complete your purchase or keep exploring?</p>
 
-    <br>
-    <a href="<%=request.getContextPath()%>/html/USER/product/productCart.jsp">Continue Shopping</a> |
-    <a href="<%=request.getContextPath()%>/html/USER/signInSignUp/logout.jsp">Logout</a>
+        <div class="button-group">
+            <a class="btn" href="<%=request.getContextPath()%>/html/USER/product/productCart.jsp"> Continue Shopping</a>
+            <a class="btn logout" href="<%=request.getContextPath()%>/html/USER/signInSignUp/logout.jsp"> Logout</a>
+        </div>
+    </div>
 
-
+    <div class="progress-bar">
+        <div class="progress" style="width: 40%;"></div>
+    </div>
 </body>
 </html>
-

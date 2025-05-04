@@ -125,7 +125,7 @@
             
             <select name="category">
                 <option value="">All Categories</option>
-                <option value="C100" <%= "C100".equals(request.getParameter("category")) ? "selected" : "" %>>Weights</option>
+                <option value="C100" <%= "C100".equals(request.getParameter("category")) ? "selected" : "" %>>Dumbells</option>
                 <option value="C101" <%= "C101".equals(request.getParameter("category")) ? "selected" : "" %>>Yoga</option>
                 <option value="C102" <%= "C102".equals(request.getParameter("category")) ? "selected" : "" %>>Cardio</option>
                 <option value="C103" <%= "C103".equals(request.getParameter("category")) ? "selected" : "" %>>Accessories</option>

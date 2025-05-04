@@ -24,7 +24,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Checkout</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/checkout.css">
+     <title>FitHub | Checkout Cart</title>
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/fithub.png">
     <script>
         function useRegisteredDetails() {
             document.getElementById("fullName").value = "<%= customerName %>";
@@ -34,6 +36,8 @@
     </script>
 </head>
 <body>
+<%@ include file="../home/header.jsp" %>
+    
     <h1>Checkout</h1>
 
     <% if (cart == null || cart.isEmpty()) { %>
@@ -112,5 +116,7 @@
             <button type="submit">Place Order</button>
         </form>
     <% } %>
+    
+<%@ include file="../home/footer.jsp" %>    
 </body>
 </html>
