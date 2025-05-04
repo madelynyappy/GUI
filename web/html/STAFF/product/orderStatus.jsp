@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <title>FitHub | Manage Order Status</title>
-    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/fithub.png">
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/staffIcon.jpg">
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -68,7 +68,7 @@
     <jsp:include page="../home/staffSidebar.jsp" />
 
     <div class="content">
-        <h1>Staff - Update Order Status</h1>
+        <h1>Update Order Status</h1>
 
         <table>
             <thead>

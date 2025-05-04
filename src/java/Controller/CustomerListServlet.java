@@ -25,10 +25,29 @@ public class CustomerListServlet extends HttpServlet {
             throws ServletException, IOException {
 
         ArrayList<Customer> customers = new ArrayList<>();
+        String searchId = request.getParameter("searchId");
+        String searchName = request.getParameter("searchName");
 
         try (Connection conn = DBConnector.getConnection()) {
-            String sql = "SELECT * FROM CUSTOMER";
+            String sql = "SELECT * FROM CUSTOMER WHERE 1=1";
+
+            if (searchId != null && !searchId.trim().isEmpty()) {
+                sql += " AND UPPER(CUSTOMERID) LIKE ?";
+            }
+            if (searchName != null && !searchName.trim().isEmpty()) {
+                sql += " AND UPPER(CUSTOMERNAME) LIKE ?";
+            }
+
             PreparedStatement ps = conn.prepareStatement(sql);
+
+            int paramIndex = 1;
+            if (searchId != null && !searchId.trim().isEmpty()) {
+                ps.setString(paramIndex++, "%" + searchId.trim().toUpperCase() + "%");
+            }
+            if (searchName != null && !searchName.trim().isEmpty()) {
+                ps.setString(paramIndex++, "%" + searchName.trim().toUpperCase() + "%");
+            }
+
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {

@@ -150,10 +150,10 @@
         <select name="category">
             <option value="">All Categories</option>
             <option value="C100" <%= "C100".equals(request.getParameter("category")) ? "selected" : "" %>>Weights</option>
-            <option value="C200" <%= "C200".equals(request.getParameter("category")) ? "selected" : "" %>>Yoga</option>
-            <option value="C300" <%= "C300".equals(request.getParameter("category")) ? "selected" : "" %>>Cardio</option>
-            <option value="C400" <%= "C400".equals(request.getParameter("category")) ? "selected" : "" %>>Accessories</option>
-            <option value="C500" <%= "C500".equals(request.getParameter("category")) ? "selected" : "" %>>Recovery</option>
+            <option value="C101" <%= "C101".equals(request.getParameter("category")) ? "selected" : "" %>>Yoga</option>
+            <option value="C102" <%= "C102".equals(request.getParameter("category")) ? "selected" : "" %>>Cardio</option>
+            <option value="C103" <%= "C103".equals(request.getParameter("category")) ? "selected" : "" %>>Accessories</option>
+            <option value="C104" <%= "C104".equals(request.getParameter("category")) ? "selected" : "" %>>Recovery</option>
         </select>
         <button type="submit" class="btn btn-search">Filter</button>
         <a href="${pageContext.request.contextPath}/html/STAFF/product/promotionList.jsp" class="btn btn-navigate">Go to Promotion List</a>

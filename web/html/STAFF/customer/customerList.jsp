@@ -10,13 +10,17 @@
 <head>
     <meta charset="UTF-8">
     <title>FitHub | Customer List</title>
-    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/fithub.png">
+    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/staffIcon.jpg">
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
             background-color: #FDFDFD;
             margin: 0;
         }
+        
+        h1{
+            color: #30588C;
+        }   
 
         h2 {
             color: #30588C;
@@ -48,6 +52,36 @@
         tr:hover {
             background-color: #E0E7F1;
         }
+        
+        form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 0;
+}
+
+input[type="text"] {
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.btn-search {
+    background-color: #30588C;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-search:hover {
+    background-color: #254559;
+}
+
+
     </style>
 </head>
 <body>
@@ -57,6 +91,19 @@
 
     <div class="content">
         <h1>Customer List</h1>
+        
+       <form method="get" action="${pageContext.request.contextPath}/CustomerListServlet" style="margin-bottom: 20px;">
+    <label for="searchId">Customer ID:</label>
+    <input type="text" name="searchId" id="searchId" placeholder="Enter ID">
+
+    <label for="searchName">Customer Name:</label>
+    <input type="text" name="searchName" id="searchName" placeholder="Enter Name">
+
+    <input type="submit" value="Search" class="btn-search">
+</form>
+
+
+        
         <table>
             <tr>
                 <th>ID</th>
