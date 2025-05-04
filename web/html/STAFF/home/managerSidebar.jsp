@@ -68,7 +68,7 @@
 
         <div class="sidebar">
             <h2>Manager Panel</h2>
-            <a href="${pageContext.request.contextPath}/CustomerListServlet">View Customers</a>
+            <a href="${pageContext.request.contextPath}/CustomerListServlet">Manage Customers</a>
             <a href="${pageContext.request.contextPath}/html/STAFF/signInSignUp/staffRegister.jsp">Add Staff</a>
             <a href="${pageContext.request.contextPath}/StaffListServlet">Manage Staff</a>
             <a href="${pageContext.request.contextPath}/html/STAFF/product/productListTest.jsp">Manage Products</a>

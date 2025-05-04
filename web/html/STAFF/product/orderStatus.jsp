@@ -64,8 +64,16 @@
 </head>
 <body>
 
-    <%-- Sidebar --%>
-    <jsp:include page="../home/staffSidebar.jsp" />
+  <%-- Sidebar --%>
+   <%
+    String role = (String) session.getAttribute("userRole");
+    String sidebarPath = "../home/staffSidebar.jsp"; // default
+
+    if ("manager".equalsIgnoreCase(role)) {
+        sidebarPath = "../home/managerSidebar.jsp";
+    }
+%>
+<jsp:include page="<%= sidebarPath %>" />
 
     <div class="content">
         <h1>Update Order Status</h1>
